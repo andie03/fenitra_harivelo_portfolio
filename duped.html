@@ -1,0 +1,2428 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fenitra RAKOTONIRINA - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Ubuntu+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Ubuntu", sans-serif;
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+        background: #0a0e27;
+        position: relative;
+      }
+
+      /* Pre-Boot Welcome Terminal */
+      #pre-boot-terminal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #0a0e27;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 11000;
+        transition: opacity 0.5s ease;
+      }
+
+      #pre-boot-terminal.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .welcome-terminal {
+        font-family: "Ubuntu Mono", monospace;
+        color: #00ff00;
+        font-size: 24px;
+        text-align: start;
+        line-height: 2;
+      }
+
+      .welcome-line {
+        opacity: 0;
+        animation: fadeInLine 1s forwards;
+      }
+
+      .welcome-line:nth-child(1) {
+        animation-delay: 1s;
+      }
+
+      .welcome-line:nth-child(2) {
+        animation-delay: 2s;
+      }
+
+      .welcome-line:nth-child(3) {
+        animation-delay: 3s;
+      }
+      .welcome-line:nth-child(4) {
+        animation-delay: 4s;
+      }
+
+      .welcome-cursor {
+        display: inline-block;
+        margin-top: 20px;
+        animation: blink 1s infinite;
+        opacity: 0;
+        animation-delay: 4.5s;
+      }
+
+      @keyframes fadeInLine {
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes blink {
+        0%,
+        49% {
+          opacity: 1;
+        }
+        50%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* Boot Screen avec Terminal */
+      #boot-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #0a0e27;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        transition: opacity 0.5s ease;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      #boot-screen.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      #boot-screen:not(.hidden) {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .boot-logo {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 30px;
+        animation: pulse 2s ease-in-out 3;
+      }
+
+      .boot-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 0.8;
+        }
+      }
+
+      /* Ubuntu-style Loading Spinner */
+      .boot-spinner {
+        width: 20px;
+        height: 20px;
+        margin: 20px auto;
+        position: relative;
+      }
+
+      .boot-spinner::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 4px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .boot-text {
+        color: white;
+        font-size: 20px;
+        font-weight: 500;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      /* Desktop */
+      #desktop-container {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 2s ease;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #desktop-container.visible {
+        opacity: 1;
+      }
+
+      /* Top Bar */
+      #topbar {
+        height: 35px;
+        background: #2c2c2c;
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15px;
+        color: white;
+        font-size: 13px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        z-index: 100;
+      }
+
+      #topbar-center {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      #topbar-center img {
+        width: 18px;
+        height: 18px;
+        object-fit: contain;
+      }
+
+      #topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 12px;
+      }
+
+      #topbar-right img {
+        width: 18px;
+        height: 18px;
+        object-fit: contain;
+      }
+
+      .topbar-icon {
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 4px;
+        transition: background 0.2s;
+      }
+
+      .topbar-icon:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      /* Wallpaper avec Canvas Neural Network */
+      #desktop {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background: linear-gradient(
+          135deg,
+          #0a0e27 0%,
+          #1a1f3a 50%,
+          #2a2f4a 100%
+        );
+        overflow: hidden;
+      }
+
+      #neural-canvas {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50%;
+        height: 100%;
+        opacity: 1;
+        pointer-events: none;
+      }
+
+      #desktop-icons {
+        position: relative;
+        z-index: 1;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 120px);
+        grid-template-rows: repeat(3, 120px);
+        gap: 20px;
+        align-content: start;
+      }
+
+      /* Desktop Icons */
+      .desktop-icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 8px;
+        transition: background 0.2s;
+        user-select: none;
+      }
+
+      .desktop-icon:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .desktop-icon.selected {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .desktop-icon-image {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .desktop-icon-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .desktop-icon-label {
+        color: white;
+        font-size: 13px;
+        text-align: center;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        max-width: 100%;
+        word-wrap: break-word;
+      }
+
+      /* Windows*/
+      .window {
+        position: fixed;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 100;
+        min-width: 400px;
+        max-width: 90vw;
+        /* HAUTEUR MAXIMALE pour être au-dessus du dock */
+        max-height: calc(100vh - 36px - 100px);
+        right: 20px;
+        top: 20px;
+      }
+
+      .window.active {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .window-titlebar {
+        background: linear-gradient(180deg, #5e2750 0%, #4a1f3f 100%);
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 8px 8px 0 0;
+        cursor: move;
+        user-select: none;
+      }
+
+      .window-title-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .window-controls {
+        display: flex;
+        align-items: start;
+        gap: 8px;
+      }
+
+      .window-control {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+
+      .window-control:hover {
+        opacity: 0.8;
+      }
+
+      .window-control.close {
+        background: #dd4814;
+      }
+
+      .window-control.minimize {
+        background: #f0ad4e;
+      }
+
+      .window-control.maximize {
+        background: #5cb85c;
+      }
+
+      .window-title {
+        color: white;
+        font-size: 10px;
+        font-weight: 500;
+      }
+
+      .window-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 15px;
+        font-size: 10px;
+      }
+      /* Dock - Floating au dessus */
+      #dock {
+        height: 58px;
+        background: #2c2c2c;
+        backdrop-filter: blur(20px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 0 20px;
+        border-radius: 16px;
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        z-index: 200;
+      }
+
+      .dock-separator {
+        width: 1px;
+        height: 38px;
+        background: rgba(255, 255, 255, 0.2);
+        margin: 0 4px;
+      }
+
+      .dock-icon {
+        width: 42px;
+        height: 42px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .dock-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .dock-icon:hover {
+        transform: translateY(-10px) scale(1.2);
+      }
+
+      .dock-icon.active::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5px;
+        height: 5px;
+        background: #dd4814;
+        border-radius: 50%;
+      }
+      /* Experience Window Specific */
+      .experiences-content {
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      /* Carousel Container */
+      .carousel-container {
+        flex: 1;
+        position: relative;
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        padding: 0;
+        overflow: hidden;
+        min-height: 0;
+      }
+
+      .carousel-slides {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+      }
+
+      .carousel-slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        padding: 0;
+      }
+
+      .carousel-slide.active {
+        opacity: 1;
+        z-index: 1;
+      }
+
+      /* Experience Card - Full Width */
+      .exp-card {
+        background: #ffffff;
+        border-radius: 0;
+        padding: 0px 10px;
+        box-shadow: none;
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      /* Header Horizontal */
+      .exp-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 25px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid #f0f0f0;
+        margin-bottom: 0px;
+        flex-shrink: 0;
+      }
+
+      .exp-icon {
+        width: 180px;
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .exp-icon img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      .exp-title-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .exp-title {
+        font-size: 28px;
+        font-weight: 600;
+        color: #2c2c2c;
+        margin: 0;
+        line-height: 1.2;
+      }
+
+      .exp-title .highlight {
+        font-weight: 800;
+        color: #000;
+      }
+
+      /* Underline dessiné en CSS */
+      .exp-underline {
+        width: 180px;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          #2c2c2c 0%,
+          #2c2c2c 70%,
+          transparent 100%
+        );
+        border-radius: 2px;
+        position: relative;
+      }
+
+      .exp-underline::after {
+        content: "";
+        position: absolute;
+        right: -5px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 8px;
+        height: 8px;
+        background: #2c2c2c;
+        border-radius: 50%;
+      }
+
+      .exp-company-tag {
+        background: #a8c7fa;
+        color: #1a1a1a;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+        display: inline-block;
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+
+      .exp-company-tags-multi {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-end;
+        flex-shrink: 0;
+      }
+
+      .exp-company-tags-multi .exp-company-tag {
+        margin: 0;
+      }
+
+      /* Content - Liste avec puces */
+      .exp-content {
+        text-align: left;
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        min-height: 0;
+      }
+
+      .exp-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .exp-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 10px;
+        color: #2c2c2c;
+        font-size: 13px;
+        line-height: 1.6;
+        position: relative;
+        padding-left: 35px;
+      }
+
+      .exp-list li::before {
+        content: "•";
+        position: absolute;
+        left: 15px;
+        color: #2c2c2c;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1.6;
+      }
+
+      /* Pour les items avec icônes tech */
+      .exp-list li .tech-icon {
+        width: 35px;
+        height: 35px;
+        object-fit: contain;
+        flex-shrink: 0;
+        margin-left: -50px;
+        margin-right: 5px;
+      }
+
+      .exp-list li:has(.tech-icon) {
+        padding-left: 20px;
+      }
+
+      .exp-list li:has(.tech-icon)::before {
+        content: none;
+      }
+
+      /* Navigation Arrows */
+      .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(100, 100, 100, 0.7);
+        border: none;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        transition: all 0.3s;
+        color: white;
+        font-size: 22px;
+      }
+
+      .carousel-nav:hover {
+        background: rgba(80, 80, 80, 0.9);
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      .carousel-nav.prev {
+        left: 15px;
+      }
+
+      .carousel-nav.next {
+        right: 15px;
+      }
+
+      .carousel-nav span {
+        display: block;
+        line-height: 1;
+      }
+
+      /* Indicators */
+      .carousel-indicators {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        padding: 15px;
+        background: #f5f5f5;
+        flex-shrink: 0;
+      }
+
+      .indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #ccc;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .indicator:hover {
+        background: #999;
+      }
+
+      .indicator.active {
+        background: #333;
+        width: 30px;
+        border-radius: 6px;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .exp-card {
+          padding: 25px 30px;
+        }
+
+        .exp-header {
+          gap: 15px;
+          flex-wrap: wrap;
+        }
+
+        .exp-title {
+          font-size: 24px;
+        }
+
+        .exp-icon {
+          width: 70px;
+          height: 70px;
+        }
+
+        .exp-list li {
+          font-size: 1px;
+          padding: 15px 20px 15px 30px;
+        }
+
+        .exp-list li::before {
+          font-size: 20px;
+          left: 12px;
+        }
+
+        .carousel-nav {
+          width: 40px;
+          height: 40px;
+          font-size: 20px;
+        }
+
+        .carousel-nav.prev {
+          left: 10px;
+        }
+
+        .carousel-nav.next {
+          right: 10px;
+        }
+      }
+      /* LibreOffice-style Window (Qui je suis) */
+      #about-window .window-content {
+        padding: 0;
+        background: #f5f5f5;
+      }
+
+      .libreoffice-toolbar {
+        background: linear-gradient(180deg, #e8e8e8 0%, #d4d4d4 100%);
+        border-bottom: 1px solid #aaa;
+        padding: 6px 10px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .libreoffice-button {
+        padding: 4px 8px;
+        background: #c0c0c0;
+        border: 1px solid #999;
+        border-radius: 3px;
+        font-size: 9px;
+        color: #666;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+
+      .libreoffice-button.enabled {
+        background: #e0e0e0;
+        color: #000;
+        cursor: pointer;
+        opacity: 1;
+      }
+
+      .libreoffice-button.enabled:hover {
+        background: #d0d0d0;
+      }
+
+      .libreoffice-content {
+        padding: 0;
+        background: white;
+        min-height: 400px;
+        max-height: calc(100vh - 36px - 150px);
+        overflow-y: auto;
+        display: flex;
+        gap: 0;
+      }
+
+      .sidebar {
+        width: 250px;
+        height: 100%;
+        background: #f8f8f8;
+        border-right: 1px solid #ddd;
+        padding: 15px;
+        flex-shrink: 0;
+      }
+
+      .sidebar-section {
+        margin-bottom: 20px;
+      }
+
+      .sidebar-section h3 {
+        background: #4a4a4a;
+        color: white;
+        padding: 6px 10px;
+        margin: 0 0 10px 0;
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .social-links {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .social-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        color: #333;
+        text-decoration: none;
+        padding: 4px 0;
+      }
+
+      .social-link:hover {
+        color: #5e2750;
+      }
+
+      .skills-list,
+      .tools-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .skills-list li,
+      .tools-list li {
+        font-size: 11px;
+        line-height: 1.8;
+        color: #333;
+        padding-left: 0;
+      }
+
+      .main-content {
+        flex: 1;
+        padding: 25px 30px;
+        background: white;
+      }
+
+      .profile-header {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+        margin-bottom: 25px;
+      }
+
+      .profile-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #5e2750;
+        flex-shrink: 0;
+      }
+
+      .intro-text {
+        flex: 1;
+        padding-top: 10px;
+      }
+
+      .intro-text p {
+        font-size: 13px;
+        line-height: 1.7;
+        color: #333;
+        margin: 0;
+        text-align: justify;
+      }
+
+      .text-content {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .text-content p {
+        font-size: 13px;
+        line-height: 1.7;
+        color: #333;
+        margin: 0;
+        text-align: justify;
+      }
+      /* Firefox Browser Window (Projets) */
+      .firefox-toolbar {
+        background: #f0f0f0;
+        border-bottom: 1px solid #ccc;
+        padding: 6px 10px;
+      }
+
+      .firefox-nav {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 6px;
+      }
+
+      .firefox-button {
+        padding: 4px 8px;
+        background: #e0e0e0;
+        border: 1px solid #999;
+        border-radius: 3px;
+        font-size: 9px;
+      }
+
+      .firefox-url {
+        flex: 1;
+        background: white;
+        border: 1px solid #ccc;
+        padding: 4px 8px;
+        font-size: 9px;
+        border-radius: 3px;
+      }
+
+      .firefox-tabs {
+        display: flex;
+        gap: 2px;
+      }
+
+      .firefox-tab {
+        background: #d0d0d0;
+        padding: 4px 12px;
+        border-radius: 6px 6px 0 0;
+        font-size: 9px;
+        cursor: pointer;
+      }
+
+      .firefox-tab.active {
+        background: white;
+      }
+
+      .youtube-interface {
+        background: #0f0f0f;
+        padding: 15px;
+        min-height: 400px;
+      }
+
+      .youtube-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #303030;
+      }
+
+      .youtube-logo {
+        width: 32px;
+        height: 32px;
+      }
+
+      .youtube-search {
+        flex: 1;
+        background: #121212;
+        border: 1px solid #303030;
+        padding: 6px 12px;
+        color: white;
+        font-size: 10px;
+        border-radius: 20px;
+      }
+
+      .video-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+      }
+
+      .video-card {
+        background: #181818;
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .video-card:hover {
+        transform: translateY(-4px);
+      }
+
+      .video-thumbnail {
+        width: 100%;
+        height: 140px;
+        background: linear-gradient(135deg, #5e2750, #dd4814);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .play-icon {
+        width: 48px;
+        height: 48px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+      }
+
+      .video-info {
+        padding: 10px;
+      }
+
+      .video-title {
+        color: white;
+        font-size: 10px;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+
+      .video-meta {
+        color: #aaa;
+        font-size: 9px;
+        margin-bottom: 8px;
+      }
+
+      .video-description {
+        color: #aaa;
+        font-size: 9px;
+        line-height: 1.4;
+        margin-bottom: 10px;
+      }
+
+      .video-button {
+        background: #dd4814;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 9px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .video-button:hover {
+        background: #c43d10;
+      }
+
+      /* Terminal Window (Formations) */
+      .terminal-window {
+        background: #300a24;
+        font-family: "Ubuntu Mono", "Courier New", monospace;
+        padding: 15px;
+        color: #ffffff;
+        font-size: 11px;
+        line-height: 1.5;
+        min-height: 300px;
+        height: 100%;
+        overflow-y: auto;
+      }
+      .terminal-prompt {
+        color: #8ae234;
+        font-weight: bold;
+      }
+      .terminal-path {
+        color: #729fcf;
+        font-weight: bold;
+      }
+      .terminal-line {
+        margin-bottom: 2px;
+      }
+      .terminal-section {
+        color: #ad7fa8;
+        font-weight: bold;
+      }
+      .terminal-title {
+        color: #fcaf3e;
+        font-weight: bold;
+      }
+      .terminal-date {
+        color: #729fcf;
+      }
+      .terminal-tag {
+        color: #8ae234;
+        font-weight: bold;
+      }
+      .terminal-cursor {
+        color: #ffffff;
+        animation: blink 1s infinite;
+      }
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* Thunderbird Window (Contact) */
+      .thunderbird-toolbar {
+        background: #f0f0f0;
+        border-bottom: 1px solid #ccc;
+        padding: 6px 10px;
+        display: flex;
+        gap: 8px;
+      }
+
+      .tb-button {
+        padding: 4px 12px;
+        background: #c0c0c0;
+        border: 1px solid #999;
+        border-radius: 3px;
+        font-size: 9px;
+        color: #666;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+
+      .tb-button.enabled {
+        background: #dd4814;
+        color: white;
+        cursor: pointer;
+        opacity: 1;
+        border-color: #c43d10;
+      }
+
+      .tb-button.enabled:hover {
+        background: #c43d10;
+      }
+
+      .email-composer {
+        padding: 15px;
+        background: white;
+      }
+
+      .email-field {
+        margin-bottom: 10px;
+      }
+
+      .email-field label {
+        display: block;
+        font-size: 9px;
+        font-weight: 500;
+        margin-bottom: 4px;
+        color: #333;
+      }
+
+      .email-field input,
+      .email-field textarea {
+        width: 100%;
+        padding: 6px 8px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 10px;
+        font-family: "Ubuntu", sans-serif;
+      }
+
+      .email-field textarea {
+        min-height: 200px;
+        resize: vertical;
+      }
+
+      /* PDF Viewer Window (CV) */
+      .pdf-viewer {
+        background: #525252;
+        padding: 0px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .pdf-button {
+        padding: 4px 12px;
+        background: #606060;
+        border: 1px solid #505050;
+        border-radius: 3px;
+        color: white;
+        font-size: 9px;
+        cursor: pointer;
+      }
+      .pdf-button:hover {
+        background: #707070;
+      }
+      .pdf-page {
+        max-width: 600px;
+        width: 100%;
+        height: 400px;
+      }
+      .pdf-page iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Pre-Boot Welcome Terminal -->
+    <div id="pre-boot-terminal">
+      <div class="welcome-terminal">
+        <div class="welcome-line">Welcome to my portfolio</div>
+        <div class="welcome-line">This is an Ubuntu Desktop simulation</div>
+        <div class="welcome-line">Click icons to explore my profile</div>
+        <div class="welcome-line">Enjoy</div>
+        <div class="welcome-cursor">_</div>
+      </div>
+    </div>
+
+    <!-- Boot Screen avec Logo Ubuntu -->
+    <div id="boot-screen">
+      <div class="boot-logo">
+        <img src="assets/ubuntu_logo.png" alt="Ubuntu Logo" />
+      </div>
+      <div class="boot-spinner"></div>
+      <div class="boot-text">Fenitra — Data Science, IA & MLOps</div>
+    </div>
+
+    <!-- Desktop Container -->
+    <div id="desktop-container">
+      <!-- Top Bar -->
+      <div id="topbar">
+        <div id="topbar-left">
+          <!-- Empty - as requested -->
+        </div>
+        <div id="topbar-center">
+          <img src="assets/notification.svg" alt="Notifications" />
+          <span id="date-display">--</span>
+          <span id="clock">--:--</span>
+        </div>
+        <div id="topbar-right">
+          <img src="assets/speaker.svg" alt="Audio" />
+          <span>FR</span>
+        </div>
+      </div>
+
+      <!-- Desktop avec Neural Network -->
+      <div id="desktop">
+        <canvas id="neural-canvas"></canvas>
+
+        <div id="desktop-icons">
+          <!-- Ligne 1 -->
+          <div class="desktop-icon" data-window="about">
+            <div class="desktop-icon-image">
+              <img src="assets/libreoffice-oasis-text.png" alt="À propos" />
+            </div>
+            <div class="desktop-icon-label">Qui je suis</div>
+          </div>
+          <div class="desktop-icon" data-window="experiences">
+            <div class="desktop-icon-image">
+              <img src="assets/libreoffice-impress.png" alt="Expériences" />
+            </div>
+            <div class="desktop-icon-label">Mes expériences</div>
+          </div>
+          <div class="desktop-icon" data-window="projects">
+            <div class="desktop-icon-image">
+              <img src="assets/firefox.png" alt="Projets" />
+            </div>
+            <div class="desktop-icon-label">Mes projets</div>
+          </div>
+
+          <!-- Ligne 2 -->
+          <div class="desktop-icon" data-window="formations">
+            <div class="desktop-icon-image">
+              <img src="assets/terminal_icon.png" alt="Formations" />
+            </div>
+            <div class="desktop-icon-label">Mes formations</div>
+          </div>
+          <div class="desktop-icon" data-window="cv">
+            <div class="desktop-icon-image">
+              <img src="assets/application-pdf.png" alt="CV" />
+            </div>
+            <div class="desktop-icon-label">Voir mon CV</div>
+          </div>
+          <div class="desktop-icon" data-window="contact">
+            <div class="desktop-icon-image">
+              <img src="assets/thunderbird.png" alt="Contact" />
+            </div>
+            <div class="desktop-icon-label">Me contacter</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Windows -->
+
+      <!-- Qui je suis - LibreOffice Style -->
+      <div
+        id="about-window"
+        class="window"
+        style="width: 700px; height: fit-content; top: 35px; right: 5px"
+      >
+        <div class="window-titlebar">
+          <div class="window-title-left">
+            <div class="window-controls">
+              <div
+                class="window-control close"
+                onclick="closeWindow('about-window')"
+              ></div>
+              <div class="window-control minimize"></div>
+              <div
+                class="window-control maximize"
+                onclick="maximizeWindow('about-window')"
+              ></div>
+            </div>
+            <span class="window-title">À propos - LibreOffice Writer</span>
+          </div>
+        </div>
+        <div class="window-content">
+          <div class="libreoffice-toolbar">
+            <button class="libreoffice-button">Fichier</button>
+            <button class="libreoffice-button">Édition</button>
+            <button class="libreoffice-button">Affichage</button>
+            <button class="libreoffice-button">Insertion</button>
+            <button class="libreoffice-button">Format</button>
+            <button class="libreoffice-button enabled">Zoom +</button>
+            <button class="libreoffice-button enabled">Zoom -</button>
+          </div>
+          <div class="libreoffice-content">
+            <div class="sidebar">
+              <div class="sidebar-section">
+                <h3>Reseau sociaux</h3>
+                <div class="social-links">
+                  <a href="#" class="social-link">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="#0077b5"
+                    >
+                      <path
+                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                      />
+                    </svg>
+                    Fenitra Harivelo
+                  </a>
+                  <a href="#" class="social-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#333">
+                      <path
+                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                      />
+                    </svg>
+                    andie03
+                  </a>
+                </div>
+              </div>
+
+              <div class="sidebar-section">
+                <h3>Competences</h3>
+                <ul class="skills-list">
+                  <li>Programmation backend</li>
+                  <li>Analyse de données</li>
+                  <li>IA (modèles supervisés)</li>
+                  <li>Containerisation d'applications</li>
+                  <li>Administration systèmes Linux</li>
+                  <li>Réseau et sécurité</li>
+                  <li>UI/UX design</li>
+                </ul>
+              </div>
+
+              <div class="sidebar-section">
+                <h3>Outils & technologies</h3>
+                <ul class="tools-list">
+                  <li>Python</li>
+                  <li>FastAPI</li>
+                  <li>PostgreSQL</li>
+                  <li>Docker</li>
+                  <li>Linux</li>
+                  <li>Git / GitHub</li>
+                  <li>Figma | Canva</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="main-content">
+              <div class="profile-header">
+                <img
+                  src="assets/profile.png"
+                  alt="Profile"
+                  class="profile-image"
+                  onerror="
+                    this.src =
+                      'https://via.placeholder.com/120/5e2750/ffffff?text=FH'
+                  "
+                />
+                <div class="intro-text">
+                  <p>
+                    Je m'appelle Fenitra Harivelo, étudiante en informatique,
+                    spécialisée en Data Science, IA et MLOps. Je m'intéresse à
+                    la création de systèmes fiables et compréhensibles, de
+                    l'analyse des données jusqu'au déploiement d'applications.
+                  </p>
+                </div>
+              </div>
+
+              <div class="text-content">
+                <p>
+                  Mon parcours a commencé en tant qu'assistante technique,
+                  expérience qui m'a orientée vers l'informatique et m'a donné
+                  envie de comprendre et résoudre des problèmes concrets.
+                  Depuis, j'ai travaillé sur l'analyse de données, la
+                  modélisation de bases, l'intégration de modèles, la
+                  containerisation avec Docker et le déploiement sous Linux,
+                  toujours dans des contextes réels (stages, haute
+                  disponibilité).
+                </p>
+
+                <p>
+                  Aujourd'hui, je souhaite continuer à progresser dans des
+                  domaines où données, systèmes et sécurité se rencontrent.
+                </p>
+
+                <p>
+                  Mon objectif est de devenir une ingénieure capable de
+                  construire des solutions intelligentes, maintenables et
+                  adaptées à des usages réels, avec une approche pragmatique,
+                  structurée et orientée impact.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experiences Window -->
+      <div
+        id="experiences-window"
+        class="window"
+        style="width: 750px; height: 600px; top: 35px; right: 5px"
+      >
+        <div class="window-titlebar">
+          <div class="window-title-left">
+            <div class="window-controls">
+              <div
+                class="window-control close"
+                onclick="closeWindow('experiences-window')"
+              ></div>
+              <div class="window-control minimize"></div>
+              <div
+                class="window-control maximize"
+                onclick="maximizeWindow('experiences-window')"
+              ></div>
+            </div>
+            <span class="window-title">Expériences Professionnelles</span>
+          </div>
+        </div>
+
+        <div class="window-content experiences-content">
+          <div class="carousel-container">
+            <button class="carousel-nav prev" onclick="prevSlide()">
+              <span>❮</span>
+            </button>
+
+            <div class="carousel-slides">
+              <!-- Slide 1: DevOps -->
+              <div class="carousel-slide active">
+                <div class="exp-card">
+                  <div class="exp-header">
+                    <div class="exp-icon">
+                      <img src="assets/exp_icons/devops.png" alt="DevOps" />
+                    </div>
+                    <div class="exp-title-section">
+                      <h2 class="exp-title">
+                        Stagiaire en <span class="highlight">DevOps</span>
+                      </h2>
+                      <div class="exp-underline"></div>
+                    </div>
+                    <div class="exp-company-tag">Sfyrisec - Full remote</div>
+                  </div>
+
+                  <div class="exp-content">
+                    <ul class="exp-list">
+                      <li>
+                        <img
+                          src="assets/exp_icons/docker_logo.png"
+                          alt="Docker"
+                          class="tech-icon"
+                        />
+                        Déploiement de l'application web de code refactoring sur
+                        <strong>Docker</strong>
+                      </li>
+                      <li>
+                        <img
+                          src="assets/exp_icons/docker_swarm_logo.png"
+                          alt="Docker Swarm"
+                          class="tech-icon"
+                        />
+                        Mise en place de la haute disponibilité sur les serveurs
+                        avec
+                        <strong>Docker Swarm</strong>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 2: Data Expert -->
+              <div class="carousel-slide">
+                <div class="exp-card">
+                  <div class="exp-header">
+                    <div class="exp-icon">
+                      <img src="assets/exp_icons/data.png" alt="Data" />
+                    </div>
+                    <div class="exp-title-section">
+                      <h2 class="exp-title">
+                        Data <span class="highlight">Expert</span>
+                      </h2>
+                      <div class="exp-underline"></div>
+                    </div>
+                    <div class="exp-company-tag">Smartone.ai - Freelance</div>
+                  </div>
+
+                  <div class="exp-content">
+                    <ul class="exp-list">
+                      <li>
+                        Annotation de contenus vidéo pour l'entraînement de
+                        modèles d'IA
+                      </li>
+                      <li>
+                        Étiquetage d'objets, segmentation, suivi d'éléments dans
+                        le temps
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 3: Assistante Technique -->
+              <div class="carousel-slide">
+                <div class="exp-card">
+                  <div class="exp-header">
+                    <div class="exp-icon">
+                      <img
+                        src="assets/exp_icons/assistante_tech.png"
+                        alt="Assistante Technique"
+                      />
+                    </div>
+                    <div class="exp-title-section">
+                      <h2 class="exp-title">
+                        Assistante <span class="highlight">Technique</span>
+                      </h2>
+                      <div class="exp-underline"></div>
+                    </div>
+                    <div class="exp-company-tags-multi">
+                      <span class="exp-company-tag">Teleperformance</span>
+                      <span class="exp-company-tag">Orange/Sosh</span>
+                    </div>
+                  </div>
+
+                  <div class="exp-content">
+                    <ul class="exp-list">
+                      <li>
+                        Gestion des demandes de support technique par messagerie
+                      </li>
+                      <li>
+                        Diagnostic et résolution des pannes internet, messagerie
+                        et TV
+                      </li>
+                      <li>
+                        Planification et suivi des rendez-vous d'installation et
+                        de dépannage
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 4: Community Manager -->
+              <div class="carousel-slide">
+                <div class="exp-card">
+                  <div class="exp-header">
+                    <div class="exp-icon">
+                      <img
+                        src="assets/exp_icons/community.png"
+                        alt="Community Manager"
+                      />
+                    </div>
+                    <div class="exp-title-section">
+                      <h2 class="exp-title">
+                        Community <span class="highlight">Manager</span>
+                      </h2>
+                      <div class="exp-underline"></div>
+                    </div>
+                    <div class="exp-company-tag">We Care</div>
+                  </div>
+
+                  <div class="exp-content">
+                    <ul class="exp-list">
+                      <li>
+                        Gestion de la communauté en ligne et réponse aux
+                        commentaires et messages
+                      </li>
+                      <li>
+                        Création de contenu et visuel sur les réseaux sociaux
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button class="carousel-nav next" onclick="nextSlide()">
+              <span>❯</span>
+            </button>
+          </div>
+
+          <div class="carousel-indicators">
+            <span class="indicator active" onclick="goToSlide(0)"></span>
+            <span class="indicator" onclick="goToSlide(1)"></span>
+            <span class="indicator" onclick="goToSlide(2)"></span>
+            <span class="indicator" onclick="goToSlide(3)"></span>
+          </div>
+        </div>
+      </div>
+      <!-- Projets - Firefox/YouTube -->
+      <div
+        id="projects-window"
+        class="window"
+        style="width: 800px; top: 35px; right: 5px"
+      >
+        <div class="window-titlebar">
+          <div class="window-title-left">
+            <div class="window-controls">
+              <div
+                class="window-control close"
+                onclick="closeWindow('projects-window')"
+              ></div>
+              <div class="window-control minimize"></div>
+              <div
+                class="window-control maximize"
+                onclick="maximizeWindow('projects-window')"
+              ></div>
+            </div>
+            <span class="window-title">Mes Projets - Firefox</span>
+          </div>
+        </div>
+        <div class="window-content" style="padding: 0">
+          <div class="firefox-toolbar">
+            <div class="firefox-nav">
+              <button class="firefox-button">◄</button>
+              <button class="firefox-button">►</button>
+              <button class="firefox-button">↻</button>
+              <input
+                type="text"
+                class="firefox-url"
+                value="https://www.youtube.com/@fenitraprojects"
+                readonly
+              />
+            </div>
+            <div class="firefox-tabs">
+              <div class="firefox-tab active">📺 Mes Projets</div>
+            </div>
+          </div>
+          <div class="youtube-interface">
+            <div class="youtube-header">
+              <img
+                src="assets/youTube_icon.png"
+                alt="YouTube"
+                class="youtube-logo"
+                onerror="
+                  this.src = 'https://img.icons8.com/color/48/youtube-play.png'
+                "
+              />
+              <input
+                type="text"
+                class="youtube-search"
+                placeholder="Rechercher..."
+                readonly
+              />
+            </div>
+            <div class="video-grid">
+              <div class="video-card">
+                <div class="video-thumbnail">
+                  <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                  <div class="video-title">
+                    Application E-commerce Full-Stack
+                  </div>
+                  <div class="video-meta">Vue il y a 2 mois • 1.2k vues</div>
+                  <div class="video-description">
+                    Plateforme e-commerce complète avec React, Node.js, MongoDB.
+                    Système de paiement, gestion des stocks, dashboard admin.
+                  </div>
+                  <button
+                    class="video-button"
+                    onclick="
+                      alert(
+                        'Projet E-commerce: React + Node.js + MongoDB\n\nFonctionnalités:\n- Authentification JWT\n- Panier et paiement Stripe\n- Dashboard administrateur\n- API RESTful\n- Tests unitaires',
+                      )
+                    "
+                  >
+                    Voir détails
+                  </button>
+                </div>
+              </div>
+
+              <div class="video-card">
+                <div class="video-thumbnail">
+                  <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                  <div class="video-title">Système de Recommandation ML</div>
+                  <div class="video-meta">Vue il y a 1 mois • 890 vues</div>
+                  <div class="video-description">
+                    Moteur de recommandation basé sur ML avec Python,
+                    TensorFlow. Filtrage collaboratif et analyse
+                    comportementale.
+                  </div>
+                  <button
+                    class="video-button"
+                    onclick="
+                      alert(
+                        'Système ML: Python + TensorFlow\n\nTechnologies:\n- Algorithmes de filtrage\n- Deep Learning\n- API Flask\n- Visualisation des données\n- 95% de précision',
+                      )
+                    "
+                  >
+                    Voir détails
+                  </button>
+                </div>
+              </div>
+
+              <div class="video-card">
+                <div class="video-thumbnail">
+                  <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                  <div class="video-title">
+                    Dashboard Analytics en Temps Réel
+                  </div>
+                  <div class="video-meta">
+                    Vue il y a 3 semaines • 1.5k vues
+                  </div>
+                  <div class="video-description">
+                    Application analytics avec Vue.js, WebSockets, D3.js.
+                    Visualisation de données en temps réel et rapports
+                    personnalisés.
+                  </div>
+                  <button
+                    class="video-button"
+                    onclick="
+                      alert(
+                        'Dashboard Analytics: Vue.js + WebSockets\n\nCaractéristiques:\n- Données temps réel\n- Graphiques interactifs D3.js\n- Export PDF/Excel\n- Notifications push\n- Multi-utilisateurs',
+                      )
+                    "
+                  >
+                    Voir détails
+                  </button>
+                </div>
+              </div>
+
+              <div class="video-card">
+                <div class="video-thumbnail">
+                  <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                  <div class="video-title">API RESTful Microservices</div>
+                  <div class="video-meta">Vue il y a 1 semaine • 670 vues</div>
+                  <div class="video-description">
+                    Architecture microservices avec Docker, Kubernetes, Redis.
+                    Scalabilité et haute disponibilité.
+                  </div>
+                  <button
+                    class="video-button"
+                    onclick="
+                      alert(
+                        'Microservices API: Docker + Kubernetes\n\nArchitecture:\n- Services containerisés\n- Load balancing\n- Cache Redis\n- CI/CD Pipeline\n- Monitoring Prometheus',
+                      )
+                    "
+                  >
+                    Voir détails
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formations Window -->
+      <div
+        class="window"
+        id="formations-window"
+        style="width: 750px; height: 600px; top: 35px; right: 5px"
+      >
+        <div class="window-titlebar">
+          <div class="window-title-left">
+            <div class="window-controls">
+              <div
+                class="window-control close"
+                onclick="closeWindow('formations-window')"
+              ></div>
+              <div class="window-control minimize"></div>
+              <div
+                class="window-control maximize"
+                onclick="maximizeWindow('formations-window')"
+              ></div>
+            </div>
+            <span class="window-title">fenitra@ubuntu: ~/formations</span>
+          </div>
+        </div>
+        <div class="window-content" style="padding: 0">
+          <div class="terminal-window">
+            <div class="terminal-line">
+              <span class="terminal-prompt">fenitra@ubuntu</span>:<span
+                class="terminal-path"
+                >~</span
+              >$ cat formations.txt
+            </div>
+            <div class="terminal-line"></div>
+
+            <div class="terminal-line">
+              <span class="terminal-section"
+                >╔═══════════════════════════════════════════════════╗</span
+              >
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-section">║ PARCOURS ACADÉMIQUE ║</span>
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-section"
+                >╚═══════════════════════════════════════════════════╝</span
+              >
+            </div>
+            <div class="terminal-line"></div>
+
+            <div class="terminal-line">
+              <span class="terminal-title"
+                >→ Bachelor's Degree - Artificial Intelligence & Big Data</span
+              >
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-date">
+                Depuis Avril 2024 | Ge-IT Andranomena</span
+              >
+            </div>
+            <div class="terminal-line">
+              Formation en Intelligence Artificielle et Big Data (3ème année)
+            </div>
+            <div class="terminal-line"></div>
+
+            <div class="terminal-line">
+              <span class="terminal-section"
+                >╔═══════════════════════════════════════════════════╗</span
+              >
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-section"
+                >║ FORMATIONS & CERTIFICATIONS ║</span
+              >
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-section"
+                >╚═══════════════════════════════════════════════════╝</span
+              >
+            </div>
+            <div class="terminal-line"></div>
+
+            <div class="terminal-line">
+              <span class="terminal-title"
+                >→ AfricaTechUp Tour - Scholarship Program</span
+              >
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-date"> Depuis Juillet 2025 | En ligne</span>
+            </div>
+            <div class="terminal-line">
+              Formation intensive en architecture de données et DevOps :
+            </div>
+            <div class="terminal-line">• Data mining & Data analysis</div>
+            <div class="terminal-line">
+              • APIs & Programmation Python avancée
+            </div>
+            <div class="terminal-line">• Virtualisation</div>
+            <div class="terminal-line">
+              • Algorithmes, modélisation et résolution de problèmes complexes
+            </div>
+            <div class="terminal-line"></div>
+
+            <div class="terminal-line">
+              <span class="terminal-title"
+                >→ Google Data Science - Coursera</span
+              >
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-date"> Depuis Avril 2025 | En ligne</span>
+            </div>
+            <div class="terminal-line">
+              Fondamentaux de l'analyse de données avec Python :
+            </div>
+            <div class="terminal-line">
+              • Nettoyage de données & Analyse exploratoire (EDA)
+            </div>
+            <div class="terminal-line">• Visualisation de données</div>
+            <div class="terminal-line">• Analyse statistique de base</div>
+            <div class="terminal-line">
+              • Prise de décision basée sur les données
+            </div>
+            <div class="terminal-line">
+              • Projets pratiques avec des ensembles de données réels
+            </div>
+            <div class="terminal-line"></div>
+
+            <div class="terminal-line">
+              <span class="terminal-section"
+                >╔═══════════════════════════════════════════════════╗</span
+              >
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-section">║ LANGUES ║</span>
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-section"
+                >╚═══════════════════════════════════════════════════╝</span
+              >
+            </div>
+            <div class="terminal-line"></div>
+
+            <div class="terminal-line">
+              Anglais : Niveau Pré-avancé
+              <span class="terminal-tag"
+                >[English Teaching Program - Janvier 2024]</span
+              >
+            </div>
+            <div class="terminal-line"></div>
+
+            <div class="terminal-line">
+              <span class="terminal-prompt">fenitra@ubuntu</span>:<span
+                class="terminal-path"
+                >~</span
+              >$ <span class="terminal-cursor">█</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Contact - Thunderbird -->
+      <div
+        id="contact-window"
+        class="window"
+        style="width: 650px; top: 35px; right: 5px"
+      >
+        <div class="window-titlebar">
+          <div class="window-title-left">
+            <div class="window-controls">
+              <div
+                class="window-control close"
+                onclick="closeWindow('contact-window')"
+              ></div>
+              <div class="window-control minimize"></div>
+              <div
+                class="window-control maximize"
+                onclick="maximizeWindow('contact-window')"
+              ></div>
+            </div>
+            <span class="window-title">Me Contacter - Thunderbird</span>
+          </div>
+        </div>
+        <div class="window-content" style="padding: 0">
+          <div class="thunderbird-toolbar">
+            <button class="tb-button">Fichier</button>
+            <button class="tb-button">Édition</button>
+            <button class="tb-button">Affichage</button>
+            <button class="tb-button enabled" onclick="sendEmail()">
+              📧 Envoyer
+            </button>
+            <button class="tb-button">Pièce jointe</button>
+            <button class="tb-button">Sécurité</button>
+          </div>
+          <div class="email-composer">
+            <div class="email-field">
+              <label>À :</label>
+              <input type="email" value="fenitratosuke@gmail.com" readonly />
+            </div>
+
+            <div class="email-field">
+              <label>De (votre email) :</label>
+              <input
+                type="email"
+                id="sender-email"
+                placeholder="votre.email@exemple.com"
+              />
+            </div>
+
+            <div class="email-field">
+              <label>Objet :</label>
+              <input
+                type="text"
+                id="email-subject"
+                placeholder="Sujet de votre message"
+              />
+            </div>
+
+            <div class="email-field">
+              <label>Message :</label>
+              <textarea
+                id="email-body"
+                placeholder="Écrivez votre message ici..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CV - PDF Viewer -->
+      <div
+        id="cv-window"
+        class="window"
+        style="width: 700px; top: 35px; right: 5px"
+      >
+        <div class="window-titlebar">
+          <div class="window-title-left">
+            <div class="window-controls">
+              <div
+                class="window-control close"
+                onclick="closeWindow('cv-window')"
+              ></div>
+              <div class="window-control minimize"></div>
+              <div
+                class="window-control maximize"
+                onclick="maximizeWindow('cv-window')"
+              ></div>
+            </div>
+            <span class="window-title">Mon CV - Visionneuse PDF</span>
+          </div>
+        </div>
+        <div class="window-content" style="padding: 0">
+          <div class="pdf-viewer">
+            <div class="pdf-page">
+              <iframe
+                src="./assets/CV_Fenitra_RAKOTONIRINA_stage_data.pdf"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dock -->
+      <div id="dock">
+        <div class="dock-icon" data-window="about">
+          <img src="assets/libreoffice-oasis-text.png" alt="About" />
+        </div>
+        <div class="dock-icon" data-window="experiences">
+          <img src="assets/libreoffice-impress.png" alt="Experiences" />
+        </div>
+        <div class="dock-icon" data-window="projects">
+          <img src="assets/firefox.png" alt="Projects" />
+        </div>
+
+        <div class="dock-separator"></div>
+
+        <div class="dock-icon" data-window="formations">
+          <img src="assets/terminal_icon.png" alt="Formations" />
+        </div>
+        <div class="dock-icon" data-window="contact">
+          <img src="assets/thunderbird.png" alt="Contact" />
+        </div>
+        <div class="dock-icon" data-window="cv">
+          <img src="assets/application-pdf.png" alt="CV" />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Neural Network Animation
+      const canvas = document.getElementById("neural-canvas");
+      const ctx = canvas.getContext("2d");
+
+      function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      // Neural network nodes
+      const nodes = [];
+      const connections = [];
+      const nodeCount = 30;
+
+      // Initialize nodes
+      for (let i = 0; i < nodeCount; i++) {
+        nodes.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          radius: 3,
+        });
+      }
+
+      // Animation loop
+      function animateNeuralNet() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Update and draw nodes
+        nodes.forEach((node) => {
+          node.x += node.vx;
+          node.y += node.vy;
+
+          // Bounce off edges
+          if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+          if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+          // Draw node
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(221, 72, 20, 0.6)";
+          ctx.fill();
+        });
+
+        // Draw connections
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 150) {
+              ctx.beginPath();
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              const opacity = (1 - distance / 150) * 0.3;
+              ctx.strokeStyle = `rgba(221, 72, 20, ${opacity})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+
+        requestAnimationFrame(animateNeuralNet);
+      }
+
+      // Boot sequence avec pre-boot terminal et Ubuntu logo
+      window.addEventListener("load", function () {
+        // Étape 1 : Afficher le pre-boot terminal (message de bienvenue) pendant ~4 secondes
+        setTimeout(() => {
+          // Étape 2 : Cacher le pre-boot terminal
+          document.getElementById("pre-boot-terminal").classList.add("hidden");
+
+          // Afficher le boot screen avec le logo Ubuntu
+          document.getElementById("boot-screen").classList.remove("hidden");
+
+          // Étape 3 : Après 3 secondes, passer au desktop
+          setTimeout(() => {
+            document.getElementById("boot-screen").classList.add("hidden");
+            document
+              .getElementById("desktop-container")
+              .classList.add("visible");
+
+            animateNeuralNet();
+          }, 5000); // 3 secondes pour le logo Ubuntu
+        }, 8000); // 4 secondes pour le pre-boot terminal
+      });
+
+      // Clock and Date update
+      function updateClock() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        document.getElementById("clock").textContent = `${hours}:${minutes}`;
+
+        // Update date
+        const options = { weekday: "short", day: "numeric", month: "short" };
+        const dateStr = now.toLocaleDateString("fr-FR", options);
+        document.getElementById("date-display").textContent = dateStr;
+      }
+      updateClock();
+      setInterval(updateClock, 1000);
+
+      // Window management
+      let activeWindow = null;
+      let draggedWindow = null;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      // Desktop icons double click handler
+      document.querySelectorAll(".desktop-icon").forEach((icon) => {
+        icon.addEventListener("click", function () {
+          const windowId = this.dataset.window + "-window";
+          openWindow(windowId);
+        });
+      });
+
+      // Dock icons click handler
+      document.querySelectorAll(".dock-icon").forEach((icon) => {
+        icon.addEventListener("click", function () {
+          const windowId = this.dataset.window + "-window";
+          const window = document.getElementById(windowId);
+
+          if (window.classList.contains("active")) {
+            closeWindow(windowId);
+            this.classList.remove("active");
+          } else {
+            openWindow(windowId);
+            this.classList.add("active");
+          }
+        });
+      });
+
+      function openWindow(windowId) {
+        // Close all other windows
+        document.querySelectorAll(".window").forEach((w) => {
+          if (w.id !== windowId) {
+            w.classList.remove("active");
+          }
+        });
+
+        // Remove active from all dock icons
+        document.querySelectorAll(".dock-icon").forEach((di) => {
+          if (di.dataset.window + "-window" !== windowId) {
+            di.classList.remove("active");
+          }
+        });
+
+        const window = document.getElementById(windowId);
+        window.classList.add("active");
+        activeWindow = window;
+
+        // Add active to corresponding dock icon
+        const windowType = windowId.replace("-window", "");
+        document.querySelectorAll(".dock-icon").forEach((di) => {
+          if (di.dataset.window === windowType) {
+            di.classList.add("active");
+          }
+        });
+      }
+
+      function closeWindow(windowId) {
+        const window = document.getElementById(windowId);
+        window.classList.remove("active");
+
+        // Remove active from dock icon
+        const windowType = windowId.replace("-window", "");
+        document.querySelectorAll(".dock-icon").forEach((di) => {
+          if (di.dataset.window === windowType) {
+            di.classList.remove("active");
+          }
+        });
+      }
+
+      /*  function maximizeWindow(windowId) {
+        const window = document.getElementById(windowId);
+        if (window.style.width === "100%") {
+          // Restore
+          window.style.width = "";
+          window.style.height = "";
+          window.style.top = "";
+          window.style.left = "";
+        } else {
+          // Maximize
+          window.style.width = "100%";
+          window.style.height = "calc(100vh - 36px - 80px)";
+          window.style.top = "36px";
+          window.style.left = "0";
+        }
+      }*/
+
+      // Drag functionality
+      document.querySelectorAll(".window-titlebar").forEach((titlebar) => {
+        titlebar.addEventListener("mousedown", function (e) {
+          if (e.target.classList.contains("window-control")) return;
+
+          draggedWindow = this.parentElement;
+          const rect = draggedWindow.getBoundingClientRect();
+          offsetX = e.clientX - rect.left;
+          offsetY = e.clientY - rect.top;
+
+          draggedWindow.style.cursor = "grabbing";
+        });
+      });
+
+      document.addEventListener("mousemove", function (e) {
+        if (draggedWindow) {
+          const newLeft = e.clientX - offsetX;
+          const newTop = e.clientY - offsetY;
+
+          // Keep within bounds
+          const maxX = window.innerWidth - draggedWindow.offsetWidth;
+          const maxY = window.innerHeight - draggedWindow.offsetHeight - 80;
+
+          draggedWindow.style.left =
+            Math.max(0, Math.min(newLeft, maxX)) + "px";
+          draggedWindow.style.top = Math.max(36, Math.min(newTop, maxY)) + "px";
+        }
+      });
+
+      document.addEventListener("mouseup", function () {
+        if (draggedWindow) {
+          draggedWindow.style.cursor = "";
+          draggedWindow = null;
+        }
+      });
+
+      // Email functionality
+      function sendEmail() {
+        const senderEmail = document.getElementById("sender-email").value;
+        const subject = document.getElementById("email-subject").value;
+        const body = document.getElementById("email-body").value;
+
+        if (!senderEmail || !subject || !body) {
+          alert("Veuillez remplir tous les champs !");
+          return;
+        }
+
+        const mailtoLink = `mailto:fenitratosuke@gmail.com?subject=${encodeURIComponent(
+          subject,
+        )}&body=${encodeURIComponent(body + "\n\nDe: " + senderEmail)}`;
+        window.location.href = mailtoLink;
+      }
+      // Carousel functionality
+      let currentSlide = 0;
+      const slides = document.querySelectorAll(".carousel-slide");
+      const indicators = document.querySelectorAll(".indicator");
+      const totalSlides = slides.length;
+
+      function showSlide(index) {
+        // Remove active class from all slides and indicators
+        slides.forEach((slide) => slide.classList.remove("active"));
+        indicators.forEach((indicator) => indicator.classList.remove("active"));
+
+        // Add active class to current slide and indicator
+        slides[index].classList.add("active");
+        indicators[index].classList.add("active");
+      }
+
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
+      }
+
+      function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        showSlide(currentSlide);
+      }
+
+      function goToSlide(index) {
+        currentSlide = index;
+        showSlide(currentSlide);
+      }
+
+      // Keyboard navigation
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") {
+          prevSlide();
+        } else if (e.key === "ArrowRight") {
+          nextSlide();
+        }
+      });
+
+      // Auto-play (optional - uncomment to enable)
+      // setInterval(nextSlide, 5000);
+
+      // Prevent context menu on desktop
+      document
+        .getElementById("desktop")
+        .addEventListener("contextmenu", function (e) {
+          e.preventDefault();
+        });
+    </script>
+  </body>
+</html>
