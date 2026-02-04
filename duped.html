@@ -193,7 +193,7 @@
         width: 100%;
         height: 100%;
         opacity: 0;
-        transition: opacity 2s ease;
+        transition: opacity 3s ease;
         display: flex;
         flex-direction: column;
       }
@@ -346,7 +346,6 @@
         z-index: 100;
         min-width: 400px;
         max-width: 90vw;
-        /* HAUTEUR MAXIMALE pour être au-dessus du dock */
         max-height: calc(100vh - 36px - 100px);
         right: 20px;
         top: 20px;
@@ -358,56 +357,72 @@
       }
 
       .window-titlebar {
-        background: linear-gradient(180deg, #5e2750 0%, #4a1f3f 100%);
-        padding: 8px 12px;
+        background: linear-gradient(180deg, #3c3c3c 0%, #2c2c2c 100%);
+        padding: 6px 12px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         border-radius: 8px 8px 0 0;
         cursor: move;
         user-select: none;
+        border-bottom: 1px solid #1a1a1a;
       }
 
       .window-title-left {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 12px;
       }
 
       .window-controls {
         display: flex;
-        align-items: start;
-        gap: 8px;
+        align-items: center;
+        gap: 6px;
       }
 
       .window-control {
-        width: 12px;
-        height: 12px;
+        width: 16px;
+        height: 16px;
         border-radius: 50%;
         cursor: pointer;
-        transition: opacity 0.2s;
+        transition: all 0.2s;
+        position: relative;
+        border: 1px solid rgba(0, 0, 0, 0.3);
       }
 
       .window-control:hover {
-        opacity: 0.8;
+        transform: scale(1.1);
       }
 
       .window-control.close {
-        background: #dd4814;
+        background: linear-gradient(135deg, #f37958 0%, #e95420 100%);
+      }
+
+      .window-control.close:hover {
+        background: linear-gradient(135deg, #ff8866 0%, #ff6644 100%);
       }
 
       .window-control.minimize {
-        background: #f0ad4e;
+        background: linear-gradient(135deg, #e6e6e6 0%, #c8c8c8 100%);
+      }
+
+      .window-control.minimize:hover {
+        background: linear-gradient(135deg, #f0f0f0 0%, #d8d8d8 100%);
       }
 
       .window-control.maximize {
-        background: #5cb85c;
+        background: linear-gradient(135deg, #e6e6e6 0%, #c8c8c8 100%);
+      }
+
+      .window-control.maximize:hover {
+        background: linear-gradient(135deg, #f0f0f0 0%, #d8d8d8 100%);
       }
 
       .window-title {
-        color: white;
-        font-size: 10px;
-        font-weight: 500;
+        color: #e6e6e6;
+        font-size: 13px;
+        font-weight: 400;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
       }
 
       .window-content {
@@ -418,6 +433,7 @@
         font-size: 10px;
       }
       /* Dock - Floating au dessus */
+
       #dock {
         height: 58px;
         background: #2c2c2c;
@@ -977,6 +993,7 @@
         border: 1px solid #999;
         border-radius: 3px;
         font-size: 9px;
+        cursor: pointer;
       }
 
       .firefox-url {
@@ -1005,8 +1022,9 @@
         background: white;
       }
 
+      /* YouTube Interface - MODE CLAIR */
       .youtube-interface {
-        background: #0f0f0f;
+        background: #f9f9f9;
         padding: 15px;
         min-height: 400px;
       }
@@ -1015,24 +1033,28 @@
         display: flex;
         align-items: center;
         gap: 15px;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #303030;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #e0e0e0;
       }
 
       .youtube-logo {
-        width: 32px;
-        height: 32px;
+        width: 45px;
+        height: auto;
       }
 
       .youtube-search {
         flex: 1;
-        background: #121212;
-        border: 1px solid #303030;
-        padding: 6px 12px;
-        color: white;
+        background: #f8f8f8;
+        border: 1px solid #ccc;
+        padding: 8px 15px;
+        color: #333;
         font-size: 10px;
         border-radius: 20px;
+      }
+
+      .youtube-search::placeholder {
+        color: #888;
       }
 
       .video-grid {
@@ -1042,78 +1064,65 @@
       }
 
       .video-card {
-        background: #181818;
-        border-radius: 8px;
+        background: #ffffff;
+        border-radius: 12px;
         overflow: hidden;
         cursor: pointer;
-        transition: transform 0.2s;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       }
 
       .video-card:hover {
         transform: translateY(-4px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       }
 
       .video-thumbnail {
         width: 100%;
         height: 140px;
-        background: linear-gradient(135deg, #5e2750, #dd4814);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-      }
-
-      .play-icon {
-        width: 48px;
-        height: 48px;
-        background: rgba(0, 0, 0, 0.7);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 20px;
+        background-color: #e0e0e0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
       }
 
       .video-info {
-        padding: 10px;
+        padding: 12px;
       }
 
       .video-title {
-        color: white;
-        font-size: 10px;
-        font-weight: 500;
-        margin-bottom: 4px;
-      }
-
-      .video-meta {
-        color: #aaa;
-        font-size: 9px;
+        color: #030303;
+        font-size: 11px;
+        font-weight: 600;
         margin-bottom: 8px;
+        line-height: 1.4;
       }
 
       .video-description {
-        color: #aaa;
+        color: #606060;
         font-size: 9px;
-        line-height: 1.4;
+        line-height: 1.5;
         margin-bottom: 10px;
       }
 
       .video-button {
-        background: #dd4814;
+        background: #d44006;
         color: white;
         border: none;
-        padding: 6px 12px;
-        border-radius: 4px;
+        padding: 8px 12px;
+        border-radius: 6px;
         font-size: 9px;
+        font-weight: 500;
         cursor: pointer;
         transition: background 0.2s;
+        width: 100%;
       }
 
       .video-button:hover {
-        background: #c43d10;
+        background: #0551b8;
       }
-
       /* Terminal Window (Formations) */
       .terminal-window {
         background: #300a24;
@@ -1270,7 +1279,7 @@
         <div class="welcome-line">Welcome to my portfolio</div>
         <div class="welcome-line">This is an Ubuntu Desktop simulation</div>
         <div class="welcome-line">Click icons to explore my profile</div>
-        <div class="welcome-line">Enjoy</div>
+        <div class="welcome-line">Enjoy !!</div>
         <div class="welcome-cursor">_</div>
       </div>
     </div>
@@ -1281,7 +1290,7 @@
         <img src="assets/ubuntu_logo.png" alt="Ubuntu Logo" />
       </div>
       <div class="boot-spinner"></div>
-      <div class="boot-text">Fenitra — Data Science, IA & MLOps</div>
+      <div class="boot-text">Fenitra -- Data Science, IA & MLOps</div>
     </div>
 
     <!-- Desktop Container -->
@@ -1312,19 +1321,19 @@
             <div class="desktop-icon-image">
               <img src="assets/libreoffice-oasis-text.png" alt="À propos" />
             </div>
-            <div class="desktop-icon-label">Qui je suis</div>
+            <div class="desktop-icon-label">Who am I</div>
           </div>
           <div class="desktop-icon" data-window="experiences">
             <div class="desktop-icon-image">
               <img src="assets/libreoffice-impress.png" alt="Expériences" />
             </div>
-            <div class="desktop-icon-label">Mes expériences</div>
+            <div class="desktop-icon-label">My experiences</div>
           </div>
           <div class="desktop-icon" data-window="projects">
             <div class="desktop-icon-image">
               <img src="assets/firefox.png" alt="Projets" />
             </div>
-            <div class="desktop-icon-label">Mes projets</div>
+            <div class="desktop-icon-label">My projects</div>
           </div>
 
           <!-- Ligne 2 -->
@@ -1332,19 +1341,19 @@
             <div class="desktop-icon-image">
               <img src="assets/terminal_icon.png" alt="Formations" />
             </div>
-            <div class="desktop-icon-label">Mes formations</div>
+            <div class="desktop-icon-label">Education</div>
           </div>
           <div class="desktop-icon" data-window="cv">
             <div class="desktop-icon-image">
               <img src="assets/application-pdf.png" alt="CV" />
             </div>
-            <div class="desktop-icon-label">Voir mon CV</div>
+            <div class="desktop-icon-label">My resume</div>
           </div>
           <div class="desktop-icon" data-window="contact">
             <div class="desktop-icon-image">
               <img src="assets/thunderbird.png" alt="Contact" />
             </div>
-            <div class="desktop-icon-label">Me contacter</div>
+            <div class="desktop-icon-label">Contact me</div>
           </div>
         </div>
       </div>
@@ -1370,15 +1379,15 @@
                 onclick="maximizeWindow('about-window')"
               ></div>
             </div>
-            <span class="window-title">À propos - LibreOffice Writer</span>
+            <span class="window-title">About me - LibreOffice Writer</span>
           </div>
         </div>
         <div class="window-content">
           <div class="libreoffice-toolbar">
-            <button class="libreoffice-button">Fichier</button>
-            <button class="libreoffice-button">Édition</button>
-            <button class="libreoffice-button">Affichage</button>
-            <button class="libreoffice-button">Insertion</button>
+            <button class="libreoffice-button">File</button>
+            <button class="libreoffice-button">Edition</button>
+            <button class="libreoffice-button">View</button>
+            <button class="libreoffice-button">Insert</button>
             <button class="libreoffice-button">Format</button>
             <button class="libreoffice-button enabled">Zoom +</button>
             <button class="libreoffice-button enabled">Zoom -</button>
@@ -1386,9 +1395,12 @@
           <div class="libreoffice-content">
             <div class="sidebar">
               <div class="sidebar-section">
-                <h3>Reseau sociaux</h3>
+                <h3>Social link</h3>
                 <div class="social-links">
-                  <a href="#" class="social-link">
+                  <a
+                    href="www.linkedin.com/in/fenitra-harivelo-1a7b51236"
+                    class="social-link"
+                  >
                     <svg
                       width="16"
                       height="16"
@@ -1401,7 +1413,7 @@
                     </svg>
                     Fenitra Harivelo
                   </a>
-                  <a href="#" class="social-link">
+                  <a href="https://github.com/andie03" class="social-link">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="#333">
                       <path
                         d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
@@ -1413,20 +1425,20 @@
               </div>
 
               <div class="sidebar-section">
-                <h3>Competences</h3>
+                <h3>Skills</h3>
                 <ul class="skills-list">
-                  <li>Programmation backend</li>
-                  <li>Analyse de données</li>
-                  <li>IA (modèles supervisés)</li>
-                  <li>Containerisation d'applications</li>
-                  <li>Administration systèmes Linux</li>
-                  <li>Réseau et sécurité</li>
+                  <li>Backend Programmation</li>
+                  <li>Data analysis</li>
+                  <li>AI supervised model</li>
+                  <li>Application containerisation</li>
+                  <li>Linux system administration</li>
+                  <li>Network and security</li>
                   <li>UI/UX design</li>
                 </ul>
               </div>
 
               <div class="sidebar-section">
-                <h3>Outils & technologies</h3>
+                <h3>Tools & technologies</h3>
                 <ul class="tools-list">
                   <li>Python</li>
                   <li>FastAPI</li>
@@ -1452,36 +1464,36 @@
                 />
                 <div class="intro-text">
                   <p>
-                    Je m'appelle Fenitra Harivelo, étudiante en informatique,
-                    spécialisée en Data Science, IA et MLOps. Je m'intéresse à
-                    la création de systèmes fiables et compréhensibles, de
-                    l'analyse des données jusqu'au déploiement d'applications.
+                    I’m Fenitra Harivelo, a Computer Science student
+                    specializing in Data Science, Artificial Intelligence, and
+                    MLOps. I’m passionate about building reliable and
+                    understandable systems, from data analysis to real-world
+                    application deployment.
                   </p>
                 </div>
               </div>
 
               <div class="text-content">
                 <p>
-                  Mon parcours a commencé en tant qu'assistante technique,
-                  expérience qui m'a orientée vers l'informatique et m'a donné
-                  envie de comprendre et résoudre des problèmes concrets.
-                  Depuis, j'ai travaillé sur l'analyse de données, la
-                  modélisation de bases, l'intégration de modèles, la
-                  containerisation avec Docker et le déploiement sous Linux,
-                  toujours dans des contextes réels (stages, haute
-                  disponibilité).
+                  My journey started as a technical assistant, an experience
+                  that led me toward computer science and sparked my desire to
+                  understand and solve real-world problems. Since then, I’ve
+                  worked on data analysis, database design, model integration,
+                  containerization with Docker, and Linux-based deployments,
+                  always in real-world environments such as internships and
+                  high-availability systems.
                 </p>
 
                 <p>
-                  Aujourd'hui, je souhaite continuer à progresser dans des
-                  domaines où données, systèmes et sécurité se rencontrent.
+                  Today, I aim to keep growing at the intersection of data,
+                  systems, and security, building robust and secure solutions
+                  for real-world challenges.
                 </p>
 
                 <p>
-                  Mon objectif est de devenir une ingénieure capable de
-                  construire des solutions intelligentes, maintenables et
-                  adaptées à des usages réels, avec une approche pragmatique,
-                  structurée et orientée impact.
+                  My goal is to become an engineer capable of building
+                  intelligent, maintainable solutions designed for real-world
+                  use, with a pragmatic, structured, and impact-driven approach.
                 </p>
               </div>
             </div>
@@ -1508,7 +1520,7 @@
                 onclick="maximizeWindow('experiences-window')"
               ></div>
             </div>
-            <span class="window-title">Expériences Professionnelles</span>
+            <span class="window-title">Professionnal experiences</span>
           </div>
         </div>
 
@@ -1543,7 +1555,7 @@
                           alt="Docker"
                           class="tech-icon"
                         />
-                        Déploiement de l'application web de code refactoring sur
+                        Deployed a web-based code refactoring application using
                         <strong>Docker</strong>
                       </li>
                       <li>
@@ -1552,8 +1564,8 @@
                           alt="Docker Swarm"
                           class="tech-icon"
                         />
-                        Mise en place de la haute disponibilité sur les serveurs
-                        avec
+                        Set up high-availability infrastructure across multiple
+                        servers with
                         <strong>Docker Swarm</strong>
                       </li>
                     </ul>
@@ -1579,13 +1591,10 @@
 
                   <div class="exp-content">
                     <ul class="exp-list">
+                      <li>Annotated video content for AI model training</li>
                       <li>
-                        Annotation de contenus vidéo pour l'entraînement de
-                        modèles d'IA
-                      </li>
-                      <li>
-                        Étiquetage d'objets, segmentation, suivi d'éléments dans
-                        le temps
+                        Performed object labeling, segmentation, and temporal
+                        tracking
                       </li>
                     </ul>
                   </div>
@@ -1604,7 +1613,7 @@
                     </div>
                     <div class="exp-title-section">
                       <h2 class="exp-title">
-                        Assistante <span class="highlight">Technique</span>
+                        Technical <span class="highlight">Assistant</span>
                       </h2>
                       <div class="exp-underline"></div>
                     </div>
@@ -1616,16 +1625,13 @@
 
                   <div class="exp-content">
                     <ul class="exp-list">
+                      <li>Managed technical support requests via email</li>
                       <li>
-                        Gestion des demandes de support technique par messagerie
+                        Diagnosed and resolved internet, email, and TV issues
                       </li>
                       <li>
-                        Diagnostic et résolution des pannes internet, messagerie
-                        et TV
-                      </li>
-                      <li>
-                        Planification et suivi des rendez-vous d'installation et
-                        de dépannage
+                        Planned and coordinated installation and troubleshooting
+                        appointments
                       </li>
                     </ul>
                   </div>
@@ -1654,11 +1660,11 @@
                   <div class="exp-content">
                     <ul class="exp-list">
                       <li>
-                        Gestion de la communauté en ligne et réponse aux
-                        commentaires et messages
+                        Managed an online community and responded to comments
+                        and messages
                       </li>
                       <li>
-                        Création de contenu et visuel sur les réseaux sociaux
+                        Created content and visuals for social media platforms
                       </li>
                     </ul>
                   </div>
@@ -1698,7 +1704,7 @@
                 onclick="maximizeWindow('projects-window')"
               ></div>
             </div>
-            <span class="window-title">Mes Projets - Firefox</span>
+            <span class="window-title">My Projects - Firefox</span>
           </div>
         </div>
         <div class="window-content" style="padding: 0">
@@ -1715,7 +1721,7 @@
               />
             </div>
             <div class="firefox-tabs">
-              <div class="firefox-tab active">📺 Mes Projets</div>
+              <div class="firefox-tab active">📺 My Projects</div>
             </div>
           </div>
           <div class="youtube-interface">
@@ -1737,17 +1743,16 @@
             </div>
             <div class="video-grid">
               <div class="video-card">
-                <div class="video-thumbnail">
-                  <div class="play-icon">▶</div>
-                </div>
+                <div
+                  class="video-thumbnail"
+                  style="
+                    background-image: url(&quot;assets/project_icon/course.png&quot;);
+                  "
+                ></div>
                 <div class="video-info">
-                  <div class="video-title">
-                    Application E-commerce Full-Stack
-                  </div>
-                  <div class="video-meta">Vue il y a 2 mois • 1.2k vues</div>
+                  <div class="video-title">2D Car Racing Simulation</div>
                   <div class="video-description">
-                    Plateforme e-commerce complète avec React, Node.js, MongoDB.
-                    Système de paiement, gestion des stocks, dashboard admin.
+                    2D racing game developed in Java using Java Swing
                   </div>
                   <button
                     class="video-button"
@@ -1757,22 +1762,23 @@
                       )
                     "
                   >
-                    Voir détails
+                    View on GitHub
                   </button>
                 </div>
               </div>
 
               <div class="video-card">
-                <div class="video-thumbnail">
-                  <div class="play-icon">▶</div>
-                </div>
+                <div
+                  class="video-thumbnail"
+                  style="
+                    background-image: url(&quot;assets/project_icon/ecokids.png&quot;);
+                  "
+                ></div>
                 <div class="video-info">
-                  <div class="video-title">Système de Recommandation ML</div>
-                  <div class="video-meta">Vue il y a 1 mois • 890 vues</div>
+                  <div class="video-title">Ecokids</div>
                   <div class="video-description">
-                    Moteur de recommandation basé sur ML avec Python,
-                    TensorFlow. Filtrage collaboratif et analyse
-                    comportementale.
+                    Interactive Game for Children. Developed an interactive game
+                    for children using HTML, CSS, and JavaScript
                   </div>
                   <button
                     class="video-button"
@@ -1782,26 +1788,24 @@
                       )
                     "
                   >
-                    Voir détails
+                    View canva
                   </button>
                 </div>
               </div>
 
               <div class="video-card">
-                <div class="video-thumbnail">
-                  <div class="play-icon">▶</div>
-                </div>
+                <div
+                  class="video-thumbnail"
+                  style="
+                    background-image: url(&quot;assets/project_icon/eduflow.png&quot;);
+                  "
+                ></div>
                 <div class="video-info">
-                  <div class="video-title">
-                    Dashboard Analytics en Temps Réel
-                  </div>
-                  <div class="video-meta">
-                    Vue il y a 3 semaines • 1.5k vues
-                  </div>
+                  <div class="video-title">EduFlow</div>
                   <div class="video-description">
-                    Application analytics avec Vue.js, WebSockets, D3.js.
-                    Visualisation de données en temps réel et rapports
-                    personnalisés.
+                    AI-Powered School Program Generator. Web application that
+                    generates school programs with AI and tracks courses in real
+                    time. Built with Flutter, FastAPI, and LLMa3.
                   </div>
                   <button
                     class="video-button"
@@ -1811,31 +1815,7 @@
                       )
                     "
                   >
-                    Voir détails
-                  </button>
-                </div>
-              </div>
-
-              <div class="video-card">
-                <div class="video-thumbnail">
-                  <div class="play-icon">▶</div>
-                </div>
-                <div class="video-info">
-                  <div class="video-title">API RESTful Microservices</div>
-                  <div class="video-meta">Vue il y a 1 semaine • 670 vues</div>
-                  <div class="video-description">
-                    Architecture microservices avec Docker, Kubernetes, Redis.
-                    Scalabilité et haute disponibilité.
-                  </div>
-                  <button
-                    class="video-button"
-                    onclick="
-                      alert(
-                        'Microservices API: Docker + Kubernetes\n\nArchitecture:\n- Services containerisés\n- Load balancing\n- Cache Redis\n- CI/CD Pipeline\n- Monitoring Prometheus',
-                      )
-                    "
-                  >
-                    Voir détails
+                    View on GitHub
                   </button>
                 </div>
               </div>
@@ -1882,7 +1862,7 @@
               >
             </div>
             <div class="terminal-line">
-              <span class="terminal-section">║ PARCOURS ACADÉMIQUE ║</span>
+              <span class="terminal-section">║ ACADEMIC PATH ║</span>
             </div>
             <div class="terminal-line">
               <span class="terminal-section"
@@ -1898,11 +1878,11 @@
             </div>
             <div class="terminal-line">
               <span class="terminal-date">
-                Depuis Avril 2024 | Ge-IT Andranomena</span
+                Since April 2024 | Ge-IT Andranomena</span
               >
             </div>
             <div class="terminal-line">
-              Formation en Intelligence Artificielle et Big Data (3ème année)
+              Training in Artificial Intelligence and Big Data (3rd year)
             </div>
             <div class="terminal-line"></div>
 
@@ -1913,7 +1893,7 @@
             </div>
             <div class="terminal-line">
               <span class="terminal-section"
-                >║ FORMATIONS & CERTIFICATIONS ║</span
+                >║ TRAININGS & CERTIFICATIONS ║</span
               >
             </div>
             <div class="terminal-line">
@@ -1929,18 +1909,18 @@
               >
             </div>
             <div class="terminal-line">
-              <span class="terminal-date"> Depuis Juillet 2025 | En ligne</span>
+              <span class="terminal-date"> Since July 2025 | Online</span>
             </div>
             <div class="terminal-line">
-              Formation intensive en architecture de données et DevOps :
+              Intensive training in data architecture and DevOps:
             </div>
             <div class="terminal-line">• Data mining & Data analysis</div>
             <div class="terminal-line">
-              • APIs & Programmation Python avancée
+              • APIs & Advanced Python Programming
             </div>
-            <div class="terminal-line">• Virtualisation</div>
+            <div class="terminal-line">• Virtualization</div>
             <div class="terminal-line">
-              • Algorithmes, modélisation et résolution de problèmes complexes
+              • Algorithms, modeling and solving complex problems
             </div>
             <div class="terminal-line"></div>
 
@@ -1950,21 +1930,19 @@
               >
             </div>
             <div class="terminal-line">
-              <span class="terminal-date"> Depuis Avril 2025 | En ligne</span>
+              <span class="terminal-date"> Since April 2025 | Online</span>
             </div>
             <div class="terminal-line">
-              Fondamentaux de l'analyse de données avec Python :
+              Fundamentals of data analysis with Python:
             </div>
             <div class="terminal-line">
-              • Nettoyage de données & Analyse exploratoire (EDA)
+              • Data cleaning & Exploratory Data Analysis (EDA)
             </div>
-            <div class="terminal-line">• Visualisation de données</div>
-            <div class="terminal-line">• Analyse statistique de base</div>
+            <div class="terminal-line">• Data visualization</div>
+            <div class="terminal-line">• Basic statistical analysis</div>
+            <div class="terminal-line">• Data-driven decision making</div>
             <div class="terminal-line">
-              • Prise de décision basée sur les données
-            </div>
-            <div class="terminal-line">
-              • Projets pratiques avec des ensembles de données réels
+              • Practical projects with real datasets
             </div>
             <div class="terminal-line"></div>
 
@@ -1974,7 +1952,7 @@
               >
             </div>
             <div class="terminal-line">
-              <span class="terminal-section">║ LANGUES ║</span>
+              <span class="terminal-section">║ LANGUAGES ║</span>
             </div>
             <div class="terminal-line">
               <span class="terminal-section"
@@ -1984,9 +1962,9 @@
             <div class="terminal-line"></div>
 
             <div class="terminal-line">
-              Anglais : Niveau Pré-avancé
+              English: Pre-advanced level
               <span class="terminal-tag"
-                >[English Teaching Program - Janvier 2024]</span
+                >[English Teaching Program - January 2024]</span
               >
             </div>
             <div class="terminal-line"></div>
@@ -2019,49 +1997,49 @@
                 onclick="maximizeWindow('contact-window')"
               ></div>
             </div>
-            <span class="window-title">Me Contacter - Thunderbird</span>
+            <span class="window-title">Contact me - Thunderbird</span>
           </div>
         </div>
         <div class="window-content" style="padding: 0">
           <div class="thunderbird-toolbar">
-            <button class="tb-button">Fichier</button>
-            <button class="tb-button">Édition</button>
-            <button class="tb-button">Affichage</button>
+            <button class="tb-button">File</button>
+            <button class="tb-button">Edit</button>
+            <button class="tb-button">View</button>
             <button class="tb-button enabled" onclick="sendEmail()">
-              📧 Envoyer
+              Send
             </button>
-            <button class="tb-button">Pièce jointe</button>
-            <button class="tb-button">Sécurité</button>
+            <button class="tb-button">Attachment</button>
+            <button class="tb-button">Security</button>
           </div>
           <div class="email-composer">
             <div class="email-field">
-              <label>À :</label>
+              <label>To:</label>
               <input type="email" value="fenitratosuke@gmail.com" readonly />
             </div>
 
             <div class="email-field">
-              <label>De (votre email) :</label>
+              <label>From (your email):</label>
               <input
                 type="email"
                 id="sender-email"
-                placeholder="votre.email@exemple.com"
+                placeholder="your.email@example.com"
               />
             </div>
 
             <div class="email-field">
-              <label>Objet :</label>
+              <label>Subject:</label>
               <input
                 type="text"
                 id="email-subject"
-                placeholder="Sujet de votre message"
+                placeholder="Your message subject"
               />
             </div>
 
             <div class="email-field">
-              <label>Message :</label>
+              <label>Message:</label>
               <textarea
                 id="email-body"
-                placeholder="Écrivez votre message ici..."
+                placeholder="Write your message here..."
               ></textarea>
             </div>
           </div>
@@ -2087,7 +2065,7 @@
                 onclick="maximizeWindow('cv-window')"
               ></div>
             </div>
-            <span class="window-title">Mon CV - Visionneuse PDF</span>
+            <span class="window-title">My resume - PDF Viewer</span>
           </div>
         </div>
         <div class="window-content" style="padding: 0">
@@ -2215,7 +2193,7 @@
               .classList.add("visible");
 
             animateNeuralNet();
-          }, 5000); // 3 secondes pour le logo Ubuntu
+          }, 3000); // 3 secondes pour le logo Ubuntu
         }, 8000); // 4 secondes pour le pre-boot terminal
       });
 
