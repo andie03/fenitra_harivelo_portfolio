@@ -59,20 +59,10 @@
         animation: fadeInLine 1s forwards;
       }
 
-      .welcome-line:nth-child(1) {
-        animation-delay: 1s;
-      }
-
-      .welcome-line:nth-child(2) {
-        animation-delay: 2s;
-      }
-
-      .welcome-line:nth-child(3) {
-        animation-delay: 3s;
-      }
-      .welcome-line:nth-child(4) {
-        animation-delay: 4s;
-      }
+      .welcome-line:nth-child(1) { animation-delay: 1s; }
+      .welcome-line:nth-child(2) { animation-delay: 2s; }
+      .welcome-line:nth-child(3) { animation-delay: 3s; }
+      .welcome-line:nth-child(4) { animation-delay: 4s; }
 
       .welcome-cursor {
         display: inline-block;
@@ -83,23 +73,15 @@
       }
 
       @keyframes fadeInLine {
-        to {
-          opacity: 1;
-        }
+        to { opacity: 1; }
       }
 
       @keyframes blink {
-        0%,
-        49% {
-          opacity: 1;
-        }
-        50%,
-        100% {
-          opacity: 0;
-        }
+        0%, 49% { opacity: 1; }
+        50%, 100% { opacity: 0; }
       }
 
-      /* Boot Screen avec Terminal */
+      /* Boot Screen */
       #boot-screen {
         position: fixed;
         top: 0;
@@ -141,18 +123,10 @@
       }
 
       @keyframes pulse {
-        0%,
-        100% {
-          transform: scale(1);
-          opacity: 1;
-        }
-        50% {
-          transform: scale(1.1);
-          opacity: 0.8;
-        }
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.1); opacity: 0.8; }
       }
 
-      /* Ubuntu-style Loading Spinner */
       .boot-spinner {
         width: 20px;
         height: 20px;
@@ -172,12 +146,8 @@
       }
 
       @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
 
       .boot-text {
@@ -336,7 +306,7 @@
         word-wrap: break-word;
       }
 
-      /* Windows*/
+      /* Windows */
       .window {
         position: fixed;
         background: white;
@@ -432,8 +402,8 @@
         padding: 15px;
         font-size: 10px;
       }
-      /* Dock - Floating au dessus */
 
+      /* Dock - Floating */
       #dock {
         height: 58px;
         background: #2c2c2c;
@@ -491,6 +461,7 @@
         background: #dd4814;
         border-radius: 50%;
       }
+
       /* Experience Window Specific */
       .experiences-content {
         padding: 0 !important;
@@ -600,7 +571,6 @@
         color: #000;
       }
 
-      /* Underline dessiné en CSS */
       .exp-underline {
         width: 180px;
         height: 3px;
@@ -692,7 +662,6 @@
         line-height: 1.6;
       }
 
-      /* Pour les items avec icônes tech */
       .exp-list li .tech-icon {
         width: 35px;
         height: 35px;
@@ -735,13 +704,8 @@
         transform: translateY(-50%) scale(1.1);
       }
 
-      .carousel-nav.prev {
-        left: 15px;
-      }
-
-      .carousel-nav.next {
-        right: 15px;
-      }
+      .carousel-nav.prev { left: 15px; }
+      .carousel-nav.next { right: 15px; }
 
       .carousel-nav span {
         display: block;
@@ -777,50 +741,6 @@
         border-radius: 6px;
       }
 
-      /* Responsive adjustments */
-      @media (max-width: 768px) {
-        .exp-card {
-          padding: 25px 30px;
-        }
-
-        .exp-header {
-          gap: 15px;
-          flex-wrap: wrap;
-        }
-
-        .exp-title {
-          font-size: 24px;
-        }
-
-        .exp-icon {
-          width: 70px;
-          height: 70px;
-        }
-
-        .exp-list li {
-          font-size: 1px;
-          padding: 15px 20px 15px 30px;
-        }
-
-        .exp-list li::before {
-          font-size: 20px;
-          left: 12px;
-        }
-
-        .carousel-nav {
-          width: 40px;
-          height: 40px;
-          font-size: 20px;
-        }
-
-        .carousel-nav.prev {
-          left: 10px;
-        }
-
-        .carousel-nav.next {
-          right: 10px;
-        }
-      }
       /* LibreOffice-style Window (Qui je suis) */
       #about-window .window-content {
         padding: 0;
@@ -973,6 +893,7 @@
         margin: 0;
         text-align: justify;
       }
+
       /* Firefox Browser Window (Projets) */
       .firefox-toolbar {
         background: #f0f0f0;
@@ -1022,7 +943,7 @@
         background: white;
       }
 
-      /* YouTube Interface - MODE CLAIR */
+      /* YouTube Interface */
       .youtube-interface {
         background: #f9f9f9;
         padding: 15px;
@@ -1068,9 +989,7 @@
         border-radius: 12px;
         overflow: hidden;
         cursor: pointer;
-        transition:
-          transform 0.2s,
-          box-shadow 0.2s;
+        transition: transform 0.2s, box-shadow 0.2s;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       }
 
@@ -1123,6 +1042,7 @@
       .video-button:hover {
         background: #0551b8;
       }
+
       /* Terminal Window (Formations) */
       .terminal-window {
         background: #300a24;
@@ -1135,46 +1055,14 @@
         height: 100%;
         overflow-y: auto;
       }
-      .terminal-prompt {
-        color: #8ae234;
-        font-weight: bold;
-      }
-      .terminal-path {
-        color: #729fcf;
-        font-weight: bold;
-      }
-      .terminal-line {
-        margin-bottom: 2px;
-      }
-      .terminal-section {
-        color: #ad7fa8;
-        font-weight: bold;
-      }
-      .terminal-title {
-        color: #fcaf3e;
-        font-weight: bold;
-      }
-      .terminal-date {
-        color: #729fcf;
-      }
-      .terminal-tag {
-        color: #8ae234;
-        font-weight: bold;
-      }
-      .terminal-cursor {
-        color: #ffffff;
-        animation: blink 1s infinite;
-      }
-      @keyframes blink {
-        0%,
-        50% {
-          opacity: 1;
-        }
-        51%,
-        100% {
-          opacity: 0;
-        }
-      }
+      .terminal-prompt { color: #8ae234; font-weight: bold; }
+      .terminal-path { color: #729fcf; font-weight: bold; }
+      .terminal-line { margin-bottom: 2px; }
+      .terminal-section { color: #ad7fa8; font-weight: bold; }
+      .terminal-title { color: #fcaf3e; font-weight: bold; }
+      .terminal-date { color: #729fcf; }
+      .terminal-tag { color: #8ae234; font-weight: bold; }
+      .terminal-cursor { color: #ffffff; animation: blink 1s infinite; }
 
       /* Thunderbird Window (Contact) */
       .thunderbird-toolbar {
@@ -1269,6 +1157,365 @@
         width: 100%;
         height: 100%;
         border: none;
+      }
+
+      /* ============================================================
+         MOBILE STYLES — tout ce qui suit s'applique uniquement
+         aux écrans <= 768px. Le desktop reste 100% intact au-dessus.
+      ============================================================ */
+      @media (max-width: 768px) {
+
+        body {
+          height: 100dvh;
+          -webkit-tap-highlight-color: transparent;
+          touch-action: manipulation;
+        }
+
+        /* Welcome terminal : texte plus petit */
+        .welcome-terminal {
+          font-size: 16px;
+          padding: 0 20px;
+        }
+
+        /* Boot logo plus petit */
+        .boot-logo {
+          width: 80px;
+          height: 80px;
+        }
+
+        .boot-text {
+          font-size: 15px;
+          padding: 0 20px;
+        }
+
+        /* Topbar */
+        #topbar {
+          height: 30px;
+          font-size: 11px;
+          padding: 0 10px;
+        }
+
+        #topbar-center {
+          gap: 8px;
+          font-size: 11px;
+        }
+
+        #topbar-center img,
+        #topbar-right img {
+          width: 14px;
+          height: 14px;
+        }
+
+        /* Desktop : pas de padding-bottom (le dock est fixed) */
+        #desktop {
+          /* le dock est fixed donc pas besoin de marge */
+        }
+
+        /* Neural canvas plein écran sur mobile */
+        #neural-canvas {
+          width: 100%;
+          opacity: 0.4;
+        }
+
+        /* Icônes bureau : grille 3 colonnes fluide */
+        #desktop-icons {
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: none;
+          gap: 12px;
+          padding: 16px 12px;
+        }
+
+        .desktop-icon {
+          padding: 10px 6px;
+          border-radius: 10px;
+          -webkit-user-select: none;
+        }
+
+        .desktop-icon:active {
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        .desktop-icon-image {
+          width: 50px;
+          height: 50px;
+        }
+
+        .desktop-icon-label {
+          font-size: 10px;
+          line-height: 1.3;
+        }
+
+        /* Dock : pleine largeur, collé en bas */
+        #dock {
+          height: 62px;
+          border-radius: 18px 18px 0 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          transform: none;
+          width: 100%;
+          gap: 6px;
+          padding: 0 10px;
+        }
+
+        .dock-icon {
+          width: 44px;
+          height: 44px;
+        }
+
+        .dock-icon:hover {
+          transform: none;
+        }
+
+        .dock-icon:active {
+          transform: scale(0.9);
+        }
+
+        .dock-icon.active::after {
+          bottom: -6px;
+        }
+
+        /* Fenêtres : plein écran entre topbar et dock */
+        .window {
+          position: fixed;
+          top: 30px;
+          left: 0;
+          right: 0;
+          bottom: 62px;
+          width: 100% !important;
+          height: auto !important;
+          min-width: unset;
+          max-width: 100%;
+          max-height: none;
+          border-radius: 0;
+          box-shadow: none;
+        }
+
+        .window.active {
+          animation: slideUp 0.25s ease-out;
+        }
+
+        @keyframes slideUp {
+          from { transform: translateY(100%); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+
+        .window-titlebar {
+          cursor: default;
+          border-radius: 0;
+          padding: 8px 12px;
+        }
+
+        .window-control {
+          width: 18px;
+          height: 18px;
+        }
+
+        .window-title {
+          font-size: 11px;
+          max-width: 200px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .window-content {
+          -webkit-overflow-scrolling: touch;
+          font-size: 13px;
+        }
+
+        /* ---- About / LibreOffice ---- */
+        .libreoffice-content {
+          flex-direction: column;
+          min-height: unset;
+          max-height: none;
+        }
+
+        .sidebar {
+          width: 100%;
+          height: auto;
+          border-right: none;
+          border-bottom: 1px solid #ddd;
+        }
+
+        .social-links {
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+
+        .skills-list,
+        .tools-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 4px 12px;
+        }
+
+        .main-content {
+          padding: 15px;
+        }
+
+        .profile-header {
+          gap: 12px;
+        }
+
+        .profile-image {
+          width: 80px;
+          height: 80px;
+          border-width: 3px;
+        }
+
+        .intro-text p,
+        .text-content p {
+          font-size: 12px;
+          line-height: 1.6;
+        }
+
+        /* ---- Experiences / Carousel ---- */
+        .exp-header {
+          gap: 12px;
+          padding: 10px 12px;
+          flex-wrap: wrap;
+        }
+
+        .exp-icon {
+          width: 70px;
+          height: 70px;
+        }
+
+        .exp-title {
+          font-size: 18px;
+        }
+
+        .exp-underline {
+          width: 120px;
+        }
+
+        .exp-company-tag {
+          font-size: 12px;
+          padding: 6px 12px;
+        }
+
+        .exp-company-tags-multi {
+          flex-direction: row;
+          flex-wrap: wrap;
+          align-items: flex-start;
+        }
+
+        .exp-list li {
+          font-size: 13px;
+          padding: 10px 12px 10px 30px;
+        }
+
+        .exp-list li::before {
+          left: 12px;
+          font-size: 20px;
+        }
+
+        .exp-list li .tech-icon {
+          width: 30px;
+          height: 30px;
+          margin-left: -18px;
+        }
+
+        .exp-list li:has(.tech-icon) {
+          padding-left: 12px;
+        }
+
+        .carousel-nav {
+          width: 38px;
+          height: 38px;
+          font-size: 18px;
+        }
+
+        .carousel-nav.prev { left: 8px; }
+        .carousel-nav.next { right: 8px; }
+
+        /* ---- Projects / YouTube ---- */
+        .youtube-interface {
+          padding: 12px;
+          min-height: unset;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+          flex: 1;
+        }
+
+        .video-grid {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+
+        .video-card {
+          display: flex;
+          flex-direction: row;
+        }
+
+        .video-thumbnail {
+          width: 120px;
+          min-height: 90px;
+          height: auto;
+          flex-shrink: 0;
+        }
+
+        .video-info {
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+
+        .video-title { font-size: 12px; }
+        .video-description { font-size: 10px; flex: 1; }
+
+        /* ---- Terminal ---- */
+        .terminal-window {
+          font-size: 12px;
+          padding: 12px;
+          -webkit-overflow-scrolling: touch;
+          word-break: break-word;
+        }
+
+        /* ---- Contact / Thunderbird ---- */
+        .thunderbird-toolbar {
+          flex-wrap: wrap;
+          gap: 5px;
+        }
+
+        .tb-button {
+          font-size: 10px;
+          padding: 5px 10px;
+        }
+
+        .email-composer {
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .email-field input,
+        .email-field textarea {
+          font-size: 13px;
+          padding: 8px 10px;
+        }
+
+        .email-field textarea {
+          min-height: 140px;
+        }
+
+        /* ---- CV / PDF ---- */
+        .pdf-viewer {
+          height: 100%;
+        }
+
+        .pdf-page {
+          max-width: 100%;
+          height: 100%;
+          flex: 1;
+        }
+
+        /* Scrollbar mobile discrète */
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 3px; }
       }
     </style>
   </head>
@@ -1464,9 +1711,9 @@
                 />
                 <div class="intro-text">
                   <p>
-                    I’m Fenitra Harivelo, a Computer Science student
+                    I'm Fenitra Harivelo, a Computer Science student
                     specializing in Data Science, Artificial Intelligence, and
-                    MLOps. I’m passionate about building reliable and
+                    MLOps. I'm passionate about building reliable and
                     understandable systems, from data analysis to real-world
                     application deployment.
                   </p>
@@ -1477,7 +1724,7 @@
                 <p>
                   My journey started as a technical assistant, an experience
                   that led me toward computer science and sparked my desire to
-                  understand and solve real-world problems. Since then, I’ve
+                  understand and solve real-world problems. Since then, I've
                   worked on data analysis, database design, model integration,
                   containerization with Docker, and Linux-based deployments,
                   always in real-world environments such as internships and
@@ -1685,6 +1932,7 @@
           </div>
         </div>
       </div>
+
       <!-- Projets - Firefox/YouTube -->
       <div
         id="projects-window"
@@ -1978,6 +2226,7 @@
           </div>
         </div>
       </div>
+
       <!-- Contact - Thunderbird -->
       <div
         id="contact-window"
@@ -2137,23 +2386,19 @@
       function animateNeuralNet() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Update and draw nodes
         nodes.forEach((node) => {
           node.x += node.vx;
           node.y += node.vy;
 
-          // Bounce off edges
           if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
           if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
 
-          // Draw node
           ctx.beginPath();
           ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
           ctx.fillStyle = "rgba(221, 72, 20, 0.6)";
           ctx.fill();
         });
 
-        // Draw connections
         for (let i = 0; i < nodes.length; i++) {
           for (let j = i + 1; j < nodes.length; j++) {
             const dx = nodes[i].x - nodes[j].x;
@@ -2175,17 +2420,12 @@
         requestAnimationFrame(animateNeuralNet);
       }
 
-      // Boot sequence avec pre-boot terminal et Ubuntu logo
-      window.addEventListener("load", function () {
-        // Étape 1 : Afficher le pre-boot terminal (message de bienvenue) pendant ~4 secondes
+      // Boot sequence
+      function startBootSequence() {
         setTimeout(() => {
-          // Étape 2 : Cacher le pre-boot terminal
           document.getElementById("pre-boot-terminal").classList.add("hidden");
-
-          // Afficher le boot screen avec le logo Ubuntu
           document.getElementById("boot-screen").classList.remove("hidden");
 
-          // Étape 3 : Après 3 secondes, passer au desktop
           setTimeout(() => {
             document.getElementById("boot-screen").classList.add("hidden");
             document
@@ -2193,9 +2433,15 @@
               .classList.add("visible");
 
             animateNeuralNet();
-          }, 3000); // 3 secondes pour le logo Ubuntu
-        }, 8000); // 4 secondes pour le pre-boot terminal
-      });
+          }, 3000);
+        }, 8000);
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", startBootSequence);
+      } else {
+        startBootSequence();
+      }
 
       // Clock and Date update
       function updateClock() {
@@ -2204,7 +2450,6 @@
         const minutes = String(now.getMinutes()).padStart(2, "0");
         document.getElementById("clock").textContent = `${hours}:${minutes}`;
 
-        // Update date
         const options = { weekday: "short", day: "numeric", month: "short" };
         const dateStr = now.toLocaleDateString("fr-FR", options);
         document.getElementById("date-display").textContent = dateStr;
@@ -2218,7 +2463,7 @@
       let offsetX = 0;
       let offsetY = 0;
 
-      // Desktop icons double click handler
+      // Desktop icons click handler
       document.querySelectorAll(".desktop-icon").forEach((icon) => {
         icon.addEventListener("click", function () {
           const windowId = this.dataset.window + "-window";
@@ -2230,9 +2475,9 @@
       document.querySelectorAll(".dock-icon").forEach((icon) => {
         icon.addEventListener("click", function () {
           const windowId = this.dataset.window + "-window";
-          const window = document.getElementById(windowId);
+          const win = document.getElementById(windowId);
 
-          if (window.classList.contains("active")) {
+          if (win.classList.contains("active")) {
             closeWindow(windowId);
             this.classList.remove("active");
           } else {
@@ -2243,25 +2488,22 @@
       });
 
       function openWindow(windowId) {
-        // Close all other windows
         document.querySelectorAll(".window").forEach((w) => {
           if (w.id !== windowId) {
             w.classList.remove("active");
           }
         });
 
-        // Remove active from all dock icons
         document.querySelectorAll(".dock-icon").forEach((di) => {
           if (di.dataset.window + "-window" !== windowId) {
             di.classList.remove("active");
           }
         });
 
-        const window = document.getElementById(windowId);
-        window.classList.add("active");
-        activeWindow = window;
+        const win = document.getElementById(windowId);
+        win.classList.add("active");
+        activeWindow = win;
 
-        // Add active to corresponding dock icon
         const windowType = windowId.replace("-window", "");
         document.querySelectorAll(".dock-icon").forEach((di) => {
           if (di.dataset.window === windowType) {
@@ -2271,10 +2513,9 @@
       }
 
       function closeWindow(windowId) {
-        const window = document.getElementById(windowId);
-        window.classList.remove("active");
+        const win = document.getElementById(windowId);
+        win.classList.remove("active");
 
-        // Remove active from dock icon
         const windowType = windowId.replace("-window", "");
         document.querySelectorAll(".dock-icon").forEach((di) => {
           if (di.dataset.window === windowType) {
@@ -2284,25 +2525,26 @@
       }
 
       /*  function maximizeWindow(windowId) {
-        const window = document.getElementById(windowId);
-        if (window.style.width === "100%") {
-          // Restore
-          window.style.width = "";
-          window.style.height = "";
-          window.style.top = "";
-          window.style.left = "";
+        const win = document.getElementById(windowId);
+        if (win.style.width === "100%") {
+          win.style.width = "";
+          win.style.height = "";
+          win.style.top = "";
+          win.style.left = "";
         } else {
-          // Maximize
-          window.style.width = "100%";
-          window.style.height = "calc(100vh - 36px - 80px)";
-          window.style.top = "36px";
-          window.style.left = "0";
+          win.style.width = "100%";
+          win.style.height = "calc(100vh - 36px - 80px)";
+          win.style.top = "36px";
+          win.style.left = "0";
         }
       }*/
 
-      // Drag functionality
+      // Drag functionality — desktop only
+      const isMobile = () => window.innerWidth <= 768;
+
       document.querySelectorAll(".window-titlebar").forEach((titlebar) => {
         titlebar.addEventListener("mousedown", function (e) {
+          if (isMobile()) return;
           if (e.target.classList.contains("window-control")) return;
 
           draggedWindow = this.parentElement;
@@ -2319,7 +2561,6 @@
           const newLeft = e.clientX - offsetX;
           const newTop = e.clientY - offsetY;
 
-          // Keep within bounds
           const maxX = window.innerWidth - draggedWindow.offsetWidth;
           const maxY = window.innerHeight - draggedWindow.offsetHeight - 80;
 
@@ -2335,6 +2576,23 @@
           draggedWindow = null;
         }
       });
+
+      // Touch swipe for carousel (mobile only)
+      let touchStartX = 0;
+      const carouselEl = document.querySelector(".carousel-slides");
+      if (carouselEl) {
+        carouselEl.addEventListener("touchstart", (e) => {
+          touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+
+        carouselEl.addEventListener("touchend", (e) => {
+          const diff = touchStartX - e.changedTouches[0].clientX;
+          if (Math.abs(diff) > 40) {
+            if (diff > 0) nextSlide();
+            else prevSlide();
+          }
+        }, { passive: true });
+      }
 
       // Email functionality
       function sendEmail() {
@@ -2352,6 +2610,7 @@
         )}&body=${encodeURIComponent(body + "\n\nDe: " + senderEmail)}`;
         window.location.href = mailtoLink;
       }
+
       // Carousel functionality
       let currentSlide = 0;
       const slides = document.querySelectorAll(".carousel-slide");
@@ -2359,11 +2618,9 @@
       const totalSlides = slides.length;
 
       function showSlide(index) {
-        // Remove active class from all slides and indicators
         slides.forEach((slide) => slide.classList.remove("active"));
         indicators.forEach((indicator) => indicator.classList.remove("active"));
 
-        // Add active class to current slide and indicator
         slides[index].classList.add("active");
         indicators[index].classList.add("active");
       }
