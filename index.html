@@ -59,10 +59,18 @@
         animation: fadeInLine 1s forwards;
       }
 
-      .welcome-line:nth-child(1) { animation-delay: 1s; }
-      .welcome-line:nth-child(2) { animation-delay: 2s; }
-      .welcome-line:nth-child(3) { animation-delay: 3s; }
-      .welcome-line:nth-child(4) { animation-delay: 4s; }
+      .welcome-line:nth-child(1) {
+        animation-delay: 1s;
+      }
+      .welcome-line:nth-child(2) {
+        animation-delay: 2s;
+      }
+      .welcome-line:nth-child(3) {
+        animation-delay: 3s;
+      }
+      .welcome-line:nth-child(4) {
+        animation-delay: 4s;
+      }
 
       .welcome-cursor {
         display: inline-block;
@@ -73,12 +81,20 @@
       }
 
       @keyframes fadeInLine {
-        to { opacity: 1; }
+        to {
+          opacity: 1;
+        }
       }
 
       @keyframes blink {
-        0%, 49% { opacity: 1; }
-        50%, 100% { opacity: 0; }
+        0%,
+        49% {
+          opacity: 1;
+        }
+        50%,
+        100% {
+          opacity: 0;
+        }
       }
 
       /* Boot Screen */
@@ -123,8 +139,15 @@
       }
 
       @keyframes pulse {
-        0%, 100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.1); opacity: 0.8; }
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 0.8;
+        }
       }
 
       .boot-spinner {
@@ -146,8 +169,12 @@
       }
 
       @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
       }
 
       .boot-text {
@@ -704,8 +731,12 @@
         transform: translateY(-50%) scale(1.1);
       }
 
-      .carousel-nav.prev { left: 15px; }
-      .carousel-nav.next { right: 15px; }
+      .carousel-nav.prev {
+        left: 15px;
+      }
+      .carousel-nav.next {
+        right: 15px;
+      }
 
       .carousel-nav span {
         display: block;
@@ -989,7 +1020,9 @@
         border-radius: 12px;
         overflow: hidden;
         cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.2s;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       }
 
@@ -1055,14 +1088,36 @@
         height: 100%;
         overflow-y: auto;
       }
-      .terminal-prompt { color: #8ae234; font-weight: bold; }
-      .terminal-path { color: #729fcf; font-weight: bold; }
-      .terminal-line { margin-bottom: 2px; }
-      .terminal-section { color: #ad7fa8; font-weight: bold; }
-      .terminal-title { color: #fcaf3e; font-weight: bold; }
-      .terminal-date { color: #729fcf; }
-      .terminal-tag { color: #8ae234; font-weight: bold; }
-      .terminal-cursor { color: #ffffff; animation: blink 1s infinite; }
+      .terminal-prompt {
+        color: #8ae234;
+        font-weight: bold;
+      }
+      .terminal-path {
+        color: #729fcf;
+        font-weight: bold;
+      }
+      .terminal-line {
+        margin-bottom: 2px;
+      }
+      .terminal-section {
+        color: #ad7fa8;
+        font-weight: bold;
+      }
+      .terminal-title {
+        color: #fcaf3e;
+        font-weight: bold;
+      }
+      .terminal-date {
+        color: #729fcf;
+      }
+      .terminal-tag {
+        color: #8ae234;
+        font-weight: bold;
+      }
+      .terminal-cursor {
+        color: #ffffff;
+        animation: blink 1s infinite;
+      }
 
       /* Thunderbird Window (Contact) */
       .thunderbird-toolbar {
@@ -1164,7 +1219,6 @@
          aux écrans <= 768px. Le desktop reste 100% intact au-dessus.
       ============================================================ */
       @media (max-width: 768px) {
-
         body {
           height: 100dvh;
           -webkit-tap-highlight-color: transparent;
@@ -1296,8 +1350,14 @@
         }
 
         @keyframes slideUp {
-          from { transform: translateY(100%); opacity: 0; }
-          to { transform: translateY(0); opacity: 1; }
+          from {
+            transform: translateY(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
         }
 
         .window-titlebar {
@@ -1428,8 +1488,12 @@
           font-size: 18px;
         }
 
-        .carousel-nav.prev { left: 8px; }
-        .carousel-nav.next { right: 8px; }
+        .carousel-nav.prev {
+          left: 8px;
+        }
+        .carousel-nav.next {
+          right: 8px;
+        }
 
         /* ---- Projects / YouTube ---- */
         .youtube-interface {
@@ -1464,8 +1528,13 @@
           justify-content: space-between;
         }
 
-        .video-title { font-size: 12px; }
-        .video-description { font-size: 10px; flex: 1; }
+        .video-title {
+          font-size: 12px;
+        }
+        .video-description {
+          font-size: 10px;
+          flex: 1;
+        }
 
         /* ---- Terminal ---- */
         .terminal-window {
@@ -1513,9 +1582,16 @@
         }
 
         /* Scrollbar mobile discrète */
-        ::-webkit-scrollbar { width: 3px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 3px; }
+        ::-webkit-scrollbar {
+          width: 3px;
+        }
+        ::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 3px;
+        }
       }
     </style>
   </head>
@@ -1787,7 +1863,7 @@
                     </div>
                     <div class="exp-title-section">
                       <h2 class="exp-title">
-                        Stagiaire en <span class="highlight">DevOps</span>
+                        DevOps <span class="highlight">internship</span>
                       </h2>
                       <div class="exp-underline"></div>
                     </div>
@@ -2005,38 +2081,13 @@
                   <button
                     class="video-button"
                     onclick="
-                      alert(
-                        'Projet E-commerce: React + Node.js + MongoDB\n\nFonctionnalités:\n- Authentification JWT\n- Panier et paiement Stripe\n- Dashboard administrateur\n- API RESTful\n- Tests unitaires',
+                      window.open(
+                        'https://github.com/andie03/course-Voiture',
+                        '_blank',
                       )
                     "
                   >
-                    View on GitHub
-                  </button>
-                </div>
-              </div>
-
-              <div class="video-card">
-                <div
-                  class="video-thumbnail"
-                  style="
-                    background-image: url(&quot;assets/project_icon/ecokids.png&quot;);
-                  "
-                ></div>
-                <div class="video-info">
-                  <div class="video-title">Ecokids</div>
-                  <div class="video-description">
-                    Interactive Game for Children. Developed an interactive game
-                    for children using HTML, CSS, and JavaScript
-                  </div>
-                  <button
-                    class="video-button"
-                    onclick="
-                      alert(
-                        'Système ML: Python + TensorFlow\n\nTechnologies:\n- Algorithmes de filtrage\n- Deep Learning\n- API Flask\n- Visualisation des données\n- 95% de précision',
-                      )
-                    "
-                  >
-                    View canva
+                    Voir le projet
                   </button>
                 </div>
               </div>
@@ -2058,12 +2109,13 @@
                   <button
                     class="video-button"
                     onclick="
-                      alert(
-                        'Dashboard Analytics: Vue.js + WebSockets\n\nCaractéristiques:\n- Données temps réel\n- Graphiques interactifs D3.js\n- Export PDF/Excel\n- Notifications push\n- Multi-utilisateurs',
+                      window.open(
+                        'https://github.com/andie03/eduflow_ia',
+                        '_blank',
                       )
                     "
                   >
-                    View on GitHub
+                    Voir le projet
                   </button>
                 </div>
               </div>
@@ -2581,17 +2633,25 @@
       let touchStartX = 0;
       const carouselEl = document.querySelector(".carousel-slides");
       if (carouselEl) {
-        carouselEl.addEventListener("touchstart", (e) => {
-          touchStartX = e.touches[0].clientX;
-        }, { passive: true });
+        carouselEl.addEventListener(
+          "touchstart",
+          (e) => {
+            touchStartX = e.touches[0].clientX;
+          },
+          { passive: true },
+        );
 
-        carouselEl.addEventListener("touchend", (e) => {
-          const diff = touchStartX - e.changedTouches[0].clientX;
-          if (Math.abs(diff) > 40) {
-            if (diff > 0) nextSlide();
-            else prevSlide();
-          }
-        }, { passive: true });
+        carouselEl.addEventListener(
+          "touchend",
+          (e) => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 40) {
+              if (diff > 0) nextSlide();
+              else prevSlide();
+            }
+          },
+          { passive: true },
+        );
       }
 
       // Email functionality
